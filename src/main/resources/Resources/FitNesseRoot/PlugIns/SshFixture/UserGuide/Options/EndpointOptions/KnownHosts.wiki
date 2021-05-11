@@ -1,0 +1,82 @@
+---
+Test
+---
+!1 !-SshFixture-! known hosts
+This option is used to define the known-hosts file path or content. If option content does not match a file path, is evaluated as a file content. In default implementation (jsch session) if not set, server connection is not verified against this file. In test implementation (dummy session) this option is ignored. Other behaviours can be implemented with [[!-CustomSession-!][<UserGuide.Customization.CustomSession]]. Known hosts is a single value option so, each new definition will overwrite the previous one.
+
+Note: like every other option, can be defined in multiple ways, as shown in [[!-DefineOptions-!][<UserGuide.Options.DefineOptions]] page.
+
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!2 Define as path
+
+!***> definitions
+!define KNOWN_HOSTS {/path/to/my/known/hosts/file}
+*!
+
+|script    |ssh client |ssh-fitnesse.dev         |
+|add option|KNOWN_HOSTS|with value|${KNOWN_HOSTS}|
+|open connection                                 |
+|execute   |echo foobar                          |
+|check     |output     |foobar                   |
+|close connection                                |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!define KNOWN_HOSTS {/path/to/my/known/hosts/file}
+
+|script    |ssh client |ssh-fitnesse.dev         |
+|add option|KNOWN_HOSTS|with value|${KNOWN_HOSTS}|
+|open connection                                 |
+|execute   |echo foobar                          |
+|check     |output     |foobar                   |
+|close connection                                |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!
+
+!2 Define as content
+
+!***> definitions
+!define KNOWN_HOSTS { {{{|1|sp/+Ae/eXiTEvXWDC3m5Wjk=|WJDkvfEQ/Eo1LjU= ssh-rsa AAAABAAABAQDCtG3Ns4/...}}} }
+*!
+
+|script    |ssh client |ssh-fitnesse.dev         |
+|add option|KNOWN_HOSTS|with value|${KNOWN_HOSTS}|
+|open connection                                 |
+|execute   |echo foobar                          |
+|check     |output     |foobar                   |
+|close connection                                |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!define KNOWN_HOSTS { {{{|1|sp/+Ae/eXiTEvXWDC3m5Wjk=|WJDkvfEQ/Eo1LjU= ssh-rsa AAAABAAABAQDCtG3Ns4/...}}} }
+
+|script    |ssh client |ssh-fitnesse.dev         |
+|add option|KNOWN_HOSTS|with value|${KNOWN_HOSTS}|
+|open connection                                 |
+|execute   |echo foobar                          |
+|check     |output     |foobar                   |
+|close connection                                |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!

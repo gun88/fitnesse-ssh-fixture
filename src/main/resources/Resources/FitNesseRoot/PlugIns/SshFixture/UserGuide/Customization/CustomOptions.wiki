@@ -1,0 +1,5 @@
+---
+Static
+---
+!1 !-SshFixture-! custom options
+Custom options are useful for CustomOutputProcessor and CustomSession. Custom options are managed as list, this means that if multiple options with same key are provided, these will be appended in options list. Custom options examples are available in CustomOutputProcessor and CustomSession pages.

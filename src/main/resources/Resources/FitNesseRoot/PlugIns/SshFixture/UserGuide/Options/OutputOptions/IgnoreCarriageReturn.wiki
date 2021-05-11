@@ -1,0 +1,51 @@
+---
+Test
+---
+!1 !-SshFixture-! ignore carriage return
+The default behaviour for !-SshFixture-! is to manage carriage returns like terminals. If this option is enabled, carriage return will be processed as normal text char. This option is a flag, so it just needs to be set (or unset) to works. Ignore carriage return is a single value option so, each new definition will overwrite the previous one.
+
+Note: like every other option, can be defined in multiple ways, as shown in [[!-DefineOptions-!][<UserGuide.Options.DefineOptions]] page.
+
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!2 Test ignore carriage return
+
+|script      |ssh client|ssh-fitnesse.dev|
+|open connection                         |
+|execute     |echo -e "foobar\rhi!"      |
+|check       |output    |hi!             |
+|add option  |IGNORE_CARRIAGE_RETURN     |
+|execute     |echo -e "foobar\rhi!"      |
+|check       |output    |=~/foobar\rhi!/ |
+|reset option|IGNORE_CARRIAGE_RETURN     |
+|execute     |echo -e "foobar\rhi!"      |
+|check       |output    |hi!             |
+|close connection                        |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+|script      |ssh client|ssh-fitnesse.dev|
+|open connection                         |
+|execute     |echo -e "foobar\rhi!"      |
+|check       |output    |hi!             |
+|add option  |IGNORE_CARRIAGE_RETURN     |
+|execute     |echo -e "foobar\rhi!"      |
+|check       |output    |=~/foobar\rhi!/ |
+|reset option|IGNORE_CARRIAGE_RETURN     |
+|execute     |echo -e "foobar\rhi!"      |
+|check       |output    |hi!             |
+|close connection                        |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!
+

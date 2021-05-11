@@ -1,0 +1,99 @@
+---
+Static
+---
+!1 !-SshFixture-! custom output processor
+Custom output processor can be implemented to customize or enrich output processing. Is suggested to extend the default output processor to maintain default behaviours.
+
+!2 Custom output processor example
+In this exemple a custom output processor (extending the default one) is defined to implement a grep-like operation. This grep match on a string provided via CustomOptions.
+
+!3 Custom output processor implementation
+Create the following class, compile it and make it available in the class-path
+
+{{{!-
+package dev.my.custom.processor;
+
+import com.github.gun88.fitnesse.fixture.ssh.option.Option;
+import com.github.gun88.fitnesse.fixture.ssh.option.Options;
+import com.github.gun88.fitnesse.fixture.ssh.result.ExecutionResult;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class GrepOutputProcessor extends DefaultOutputProcessor {
+
+    @Override
+    public void after(ExecutionResult result, Options options) {
+        List<String> greps = options.getOtherOptions().stream()
+                .filter(x -> x.getKey().equals("GREP"))
+                .map(Option::getValue)
+                .collect(Collectors.toList());
+        result.setOutput(grep(result.getOutput(), greps));
+        result.setError(grep(result.getError(), greps));
+    }
+
+    private String grep(String output, List<String> greps) {
+        for (String grep : greps)
+            output = Arrays.stream(grep.split("\n"))
+                    .filter(x -> x.contains(grep))
+                    .collect(Collectors.joining("\n"));
+        return output;
+    }
+
+}
+-!}}}
+
+!3 Create test
+Only output matching greps (containing foo and bar) will be returned. The class-name for the custom output processor must be defined via the OUTPUT_PROCESSOR_CLASS option.
+
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+|script    |ssh client            |foo/bar@ssh-fitnesse.dev                              |
+|add option|OUTPUT_PROCESSOR_CLASS|with value|dev.my.custom.processor.GrepOutputProcessor|
+|add option|GREP                  |with value|foo                                        |
+|add option|GREP                  |with value|bar                                        |
+|open connection                                                                         |
+|execute   |echo foobar                                                                  |
+|check     |output                |foobar                                                |
+|execute   |echo foo_bar                                                                 |
+|check     |output                |foo_bar                                               |
+|execute   |echo foo_bar                                                                 |
+|check     |output                |foo_bar                                               |
+|execute   |echo fo_ar                                                                   |
+|check     |output                |                                                      |
+|close connection                                                                        |
+
+Note: remember to add compiled code to classpath
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+|script    |ssh client            |foo/bar@ssh-fitnesse.dev                              |
+|add option|OUTPUT_PROCESSOR_CLASS|with value|dev.my.custom.processor.GrepOutputProcessor|
+|add option|GREP                  |with value|foo                                        |
+|add option|GREP                  |with value|bar                                        |
+|open connection                                                                         |
+|execute   |echo foobar                                                                  |
+|check     |output                |foobar                                                |
+|execute   |echo foo_bar                                                                 |
+|check     |output                |foo_bar                                               |
+|execute   |echo foo_bar                                                                 |
+|check     |output                |foo_bar                                               |
+|execute   |echo fo_ar                                                                   |
+|check     |output                |                                                      |
+|close connection                                                                        |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+!path /path/to/your/code/containing/customized/output/processor
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!
+

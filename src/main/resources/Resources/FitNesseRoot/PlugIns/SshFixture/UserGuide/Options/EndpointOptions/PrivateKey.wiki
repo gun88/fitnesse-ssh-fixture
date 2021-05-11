@@ -1,0 +1,114 @@
+---
+Test
+---
+!1 !-SshFixture-! private key
+This option is used to define the private-key file path or content. If option content does not match a file path, is evaluated as a file content. In default implementation (jsch session) if not set, server connection is authenticated via password. In test implementation (dummy session) this option is ignored. Other behaviours can be implemented with [[!-CustomSession-!][<UserGuide.Customization.CustomSession]]. Private key is a single value option so, each new definition will overwrite the previous one.
+
+Note: with default session implementation (jsch), keys format must be RSA.
+
+Note: if needed, also [[Passphrase][<UserGuide.Options.EndpointOptions.Passphrase]] and PublicKey can be defined.
+
+Note: like every other option, can be defined in multiple ways, as shown in [[!-DefineOptions-!][<UserGuide.Options.DefineOptions]] page.
+
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!2 Define as path
+
+!***> definitions
+!define PRIVATE_KEY {/path/to/my/private/key/file}
+*!
+
+|script    |ssh client |ssh-fitnesse.dev         |
+|add option|PRIVATE_KEY|with value|${PRIVATE_KEY}|
+|open connection                                 |
+|execute   |echo foobar                          |
+|check     |output     |foobar                   |
+|close connection                                |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!define PRIVATE_KEY {/path/to/my/private/key/file}
+
+|script    |ssh client |ssh-fitnesse.dev         |
+|add option|PRIVATE_KEY|with value|${PRIVATE_KEY}|
+|open connection                                 |
+|execute   |echo foobar                          |
+|check     |output     |foobar                   |
+|close connection                                |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!
+
+!2 Define as content
+
+!***> definitions
+!define PRIVATE_KEY { {{{-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,65A4UPHGFA0C9567744EFBC6EC3BE7BE
+
+MB6u1XVUHo7MYNi2n8bLDueURtN0zYOdv5wJ5dlO2Cxcs+3IDURO4ItMXNjQmPcI
+4N++NH3YsFYYNYzosGwsj6xuTn6AiSQTbBhxgL59dzpl9sq0HHeCJ11EGursHfAN
+I5CfkC410QTXpVv8MQ/uXyWIPBxTrfvUxLMKNCwo1SfV4y2zuAKy8POZyvyVdohX
+GNM6XwTsYvaVCJxKJGuZPjjcuRy7Pomj4oq+4+YArGCvivj2jATluIKaxFj7qEcK
+Ar3SPAbRSGziDWMkeGmBbC15epzOtC0x2KqzpxxoEdKYlLHghn4W1lsdg/0H5M2E
+...
+ukH0tLZyd6P4+bI6koiipq7YylQqMpCZakv4jPqhm8WzpPWsF+88PocMTOgfb4O/
+5T+eCE+Fxg36wVbvCUDe/dkyEnUbWRnHmEZdxWGPini9QvFFKn2HuaPsCTWxVgfm
+rCzSPY6CH0U/QJcK5K2SlP3L/Blrt+/Axx6rXc1puZTWxxlX2saZD6a5J9u9QF/w
+-----END RSA PRIVATE KEY-----
+}}} }
+*!
+
+|script    |ssh client |ssh-fitnesse.dev         |
+|add option|PRIVATE_KEY|with value|${PRIVATE_KEY}|
+|open connection                                 |
+|execute   |echo foobar                          |
+|check     |output     |foobar                   |
+|close connection                                |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!define PRIVATE_KEY { {{{-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,65A4UPHGFA0C9567744EFBC6EC3BE7BE
+
+MB6u1XVUHo7MYNi2n8bLDueURtN0zYOdv5wJ5dlO2Cxcs+3IDURO4ItMXNjQmPcI
+4N++NH3YsFYYNYzosGwsj6xuTn6AiSQTbBhxgL59dzpl9sq0HHeCJ11EGursHfAN
+I5CfkC410QTXpVv8MQ/uXyWIPBxTrfvUxLMKNCwo1SfV4y2zuAKy8POZyvyVdohX
+GNM6XwTsYvaVCJxKJGuZPjjcuRy7Pomj4oq+4+YArGCvivj2jATluIKaxFj7qEcK
+Ar3SPAbRSGziDWMkeGmBbC15epzOtC0x2KqzpxxoEdKYlLHghn4W1lsdg/0H5M2E
+...
+ukH0tLZyd6P4+bI6koiipq7YylQqMpCZakv4jPqhm8WzpPWsF+88PocMTOgfb4O/
+5T+eCE+Fxg36wVbvCUDe/dkyEnUbWRnHmEZdxWGPini9QvFFKn2HuaPsCTWxVgfm
+rCzSPY6CH0U/QJcK5K2SlP3L/Blrt+/Axx6rXc1puZTWxxlX2saZD6a5J9u9QF/w
+-----END RSA PRIVATE KEY-----
+}}} }
+
+|script    |ssh client |ssh-fitnesse.dev         |
+|add option|PRIVATE_KEY|with value|${PRIVATE_KEY}|
+|open connection                                 |
+|execute   |echo foobar                          |
+|check     |output     |foobar                   |
+|close connection                                |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!

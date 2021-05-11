@@ -1,0 +1,7 @@
+---
+Suite
+---
+!1 !-SshFixture-! option definition
+!-SshFixture-! options can be set in table header for decision table and script header or via dedicated row in script and scenario tables. Default option values can be also provided via VM options and !-FitNesse-! properties file.
+
+!contents -R2 -g -p -f -h

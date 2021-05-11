@@ -1,0 +1,7 @@
+---
+Static
+---
+!1 !-SshFixture-! session class
+This option (labeled with: SESSION_CLASS) is used to define the customized ssh session class name. Session class is a single value option so, each new definition will overwrite the previous one. To learn how to implement a customized session, go to [[!-CustomSession-!][<UserGuide.Customization.CustomSession]] page.
+
+Note: like every other option, can be defined in multiple ways, as shown in [[!-DefineOptions-!][<UserGuide.Options.DefineOptions]] page.

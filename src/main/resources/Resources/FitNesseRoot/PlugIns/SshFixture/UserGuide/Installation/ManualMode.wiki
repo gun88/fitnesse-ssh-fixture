@@ -1,0 +1,18 @@
+!1 !-Manual Mode Installation-!
+If you do not want to use !-SshFixture-! as a plugin or extracting files, all you need to do to execute tests is set paths to fitnesse-ssh-fixture.jar and its dependencies in test pages.
+
+{{{!path /path/tp/fitnesse-ssh-fixture.jar
+!path /path/to/jsch.jar}}}
+
+!2 Documentation
+Not available out of the box in manual mode
+
+!2 Classpath
+Must be defined manually.
+
+!2 Create Test
+With this installation method, to create your test using !-SshFixture-!, you need to define paths to required jars in your test/suite page :
+{{{!-!path /actual/path/to/jsch.jar
+!path /actual/path/to/sshFixture.jar-!}}}
+Note: differently from plugin mode, paths must be defined due to the fact that those are not stored in FitNesse context.
+More details on test creation available [[here][<UserGuide.TestCreation]].

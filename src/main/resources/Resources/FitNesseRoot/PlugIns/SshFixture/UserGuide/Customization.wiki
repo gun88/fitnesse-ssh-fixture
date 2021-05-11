@@ -1,0 +1,7 @@
+---
+Suite
+---
+!1 !-SshFixture-! customization
+!-SshFixture-! can be used with [[!-CustomSession-!][<UserGuide.Customization.CustomSession]]  and [[!-CustomOutputProcessor-!][<UserGuide.Customization.CustomOutputProcessor]].
+
+!contents -R2 -g -p -f -h

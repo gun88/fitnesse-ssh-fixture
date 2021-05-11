@@ -1,0 +1,81 @@
+---
+Test
+---
+!1 !-SshFixture-! regex replace
+Replace matching regexes in fixture outputs. Replace is a list option so, each new definition will be added to the table regexes list.
+
+Note: like every other option, can be defined in multiple ways, as shown in [[!-DefineOptions-!][<UserGuide.Options.DefineOptions]] page.
+
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!2 Simple invocation
+
+|script    |ssh client|ssh-fitnesse.dev    |
+|open connection                           |
+|execute   |echo fooabar                   |
+|check     |output    |fooabar             |
+|add option|REPLACE   |with value|/foo/bar/|
+|execute   |echo foobar                    |
+|check     |output    |barbar              |
+|close connection                          |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+|script    |ssh client|ssh-fitnesse.dev    |
+|open connection                           |
+|execute   |echo fooabar                   |
+|check     |output    |fooabar             |
+|add option|REPLACE   |with value|/foo/bar/|
+|execute   |echo foobar                    |
+|check     |output    |barbar              |
+|close connection                          |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!
+
+!2 Multiple replace options
+When multiple replace options provided, regex replaces will be performed depending on the list order. Also replace options defined via [[!-PropertiesFile-!][<UserGuide.Options.DefineOptions.DefaultInPropertiesFile]] or [[!-VmOptions-!][<UserGuide.Options.DefineOptions.DefaultInVmOptions]] will be evaluated.
+
+|script    |ssh client|ssh-fitnesse.dev       |
+|open connection                              |
+|add option|REPLACE   |with value|/bar/comodo/|
+|add option|REPLACE   |with value|/foo/bar/   |
+|add option|REPLACE   |with value|/comodo/foo/|
+|execute   |echo foobar; echo foo 1>&2        |
+|check     |output    |barfoo                 |
+|check     |error     |bar                    |
+|close connection                             |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+|script    |ssh client|ssh-fitnesse.dev       |
+|open connection                              |
+|add option|REPLACE   |with value|/bar/comodo/|
+|add option|REPLACE   |with value|/foo/bar/   |
+|add option|REPLACE   |with value|/comodo/foo/|
+|execute   |echo foobar; echo foo 1>&2        |
+|check     |output    |barfoo                 |
+|check     |error     |bar                    |
+|close connection                             |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!

@@ -1,0 +1,141 @@
+---
+Test
+---
+Scenarios could be useful to define command sequences, reuse options and endpoints definitions. For more details on scenarios, click [[here][.FitNesse.UserGuide.WritingAcceptanceTests.SliM.ScenarioTable]]
+
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+----
+!3 Scenario for multiple commands
+
+|scenario      |save     |first|and|second   |
+|execute       |echo @first >demo.file.1.txt |
+|$firstResult= |output                       |
+|check         |exit code|0                  |
+|execute       |echo @second >demo.file.2.txt|
+|$secondResult=|output                       |
+|check         |exit code|0                  |
+
+|script |ssh client|foo/bar@ssh-fitnesse.dev|
+|open connection                            |
+|save   |foo       |and|bar                 |
+|execute|cat demo.file.1.txt                |
+|check  |output    |foo                     |
+|execute|cat demo.file.2.txt                |
+|check  |output    |bar                     |
+|close connection                           |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+|scenario      |save     |first|and|second   |
+|execute       |echo @first >demo.file.1.txt |
+|$firstResult= |output                       |
+|check         |exit code|0                  |
+|execute       |echo @second >demo.file.2.txt|
+|$secondResult=|output                       |
+|check         |exit code|0                  |
+
+|script |ssh client|foo/bar@ssh-fitnesse.dev|
+|open connection                            |
+|save   |foo       |and|bar                 |
+|execute|cat demo.file.1.txt                |
+|check  |output    |foo                     |
+|execute|cat demo.file.2.txt                |
+|check  |output    |bar                     |
+|close connection                           |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!
+----
+!3 Scenario for options definition
+To know more details on !-SshFixture-! options, click [[here][<UserGuide.Options]]
+
+Note: the dump-options command called in the following tests is available only for the mocked host: ssh-fitnesse.dev.
+
+|scenario  |load options                   |
+|add option|MY_OPTION_1                    |
+|add option|MY_OPTION_2|with value|my value|
+
+|script |ssh client|foo/bar@ssh-fitnesse.dev        |
+|open connection                                    |
+|load options                                       |
+|execute|dump-options                               |
+|check  |output    |MY_OPTION_1 MY_OPTION_2=my value|
+|close connection                                   |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+|scenario  |load options                   |
+|add option|MY_OPTION_1                    |
+|add option|MY_OPTION_2|with value|my value|
+
+|script |ssh client|foo/bar@ssh-fitnesse.dev        |
+|open connection                                    |
+|load options                                       |
+|execute|dump-options                               |
+|check  |output    |MY_OPTION_1 MY_OPTION_2=my value|
+|close connection                                   |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!
+----
+!3 Scenario for endpoint definition
+To know more details on !-SshFixture-! endpoint definitions, click [[here][<UserGuide.EndpointDefinition]]
+
+|scenario|load endpoint   |
+|username|foo             |
+|password|bar             |
+|host    |ssh-fitnesse.dev|
+|port    |1234            |
+
+|script |ssh client                          |
+|load endpoint                               |
+|open connection                             |
+|execute|dump-endpoint                       |
+|check  |output|foo/bar@ssh-fitnesse.dev:1234|
+|close connection                            |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+|scenario|load endpoint   |
+|username|foo             |
+|password|bar             |
+|host    |ssh-fitnesse.dev|
+|port    |1234            |
+
+|script |ssh client                          |
+|load endpoint                               |
+|open connection                             |
+|execute|dump-endpoint                       |
+|check  |output|foo/bar@ssh-fitnesse.dev:1234|
+|close connection                            |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!

@@ -1,0 +1,15 @@
+---
+Static
+---
+!1 !-SshFixture-! option definition via VM options
+!-SshFixture-! default options can be also defined via VM options. This options are called 'default' because, once defined, are available in all !-SshFixture-! and, as described in ScriptTable page, these options can be overrided and restored once called 'reset option'.
+
+The VM option key is: '''ssh.fixture.options''' and can be defined in code:
+
+{{{System.setProperty("ssh.fixture.options","MY_OPTION_1 MY_OPTION_2=my-value MY_OPTION_3=\"my value\"");}}}
+
+or as parameter in FitNesse launch command:
+
+{{{java -Dssh.fixture.options="MY_OPTION_1 MY_OPTION_2=my-value MY_OPTION_3=\"my value\"" ...}}}
+
+Note: priority for defined options is the same used by FitNesse: wiki > VM options > file; so if same options are defined in property file and VM options, the one from VM options will be evaluated.

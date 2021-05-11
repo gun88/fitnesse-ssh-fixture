@@ -1,0 +1,14 @@
+---
+Suite
+---
+!1 !-SshFixture-! User Guide
+'''!-SshFixture-!''' (fitnesse-ssh-fixture) is a FitNesse slim fixture for ssh protocol communications
+
+!2 Quick Start
+To start using !-SshFixture-!, just put the release jar into the FitNesse plugins directory and restart FitNesse Web Server, then you will able to run UserGuide suite's tests.
+Go to the [[Installation][UserGuide.Installation]] page to see more details and different installation modes.
+Go to [[!-CreateYourFirstTest-!][UserGuide.SshTestCreation.CreateYourFirstTest]] to start writing test using !-SshFixture-!.
+
+Note: in user guide test, a connection to a dummy ssh server is used: ''ssh-fitnesse.dev''
+
+!contents -R3 -g -p -f -h

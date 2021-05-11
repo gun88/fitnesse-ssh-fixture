@@ -1,0 +1,82 @@
+---
+Test
+---
+!1 !-SshFixture-! terminal width
+Emulate max terminal width size. Default value is: no max width. Terminal width is a single value option so, each new definition will overwrite the previous one.
+
+Note: like every other option, can be defined in multiple ways, as shown in [[!-DefineOptions-!][<UserGuide.Options.DefineOptions]] page.
+
+Note: suggested use with PREFORMATTED option enabled.
+
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!***> Definitions
+!define output { {{{012345678901234567890123456789}}} }
+!define output_5 { {{{01234
+56789
+01234
+56789
+01234
+56789
+}}} }
+!define output_10 { {{{0123456789
+0123456789
+0123456789
+}}} }
+
+*!
+
+|script    |ssh client    |ssh-fitnesse.dev|PREFORMATTED|
+|open connection                                        |
+|execute   |echo 012345678901234567890123456789         |
+|check     |output        |${output}                    |
+|add option|TERMINAL_WIDTH|with value      |5           |
+|execute   |echo 012345678901234567890123456789         |
+|check     |output        |${output_5}                  |
+|add option|TERMINAL_WIDTH|with value      |10          |
+|execute   |echo 012345678901234567890123456789         |
+|check     |output        |${output_10}                 |
+|close connection                                       |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!***> Definitions
+!define output { {{{012345678901234567890123456789}}} }
+!define output_5 { {{{01234
+56789
+01234
+56789
+01234
+56789
+}}} }
+!define output_10 { {{{0123456789
+0123456789
+0123456789
+}}} }
+
+*!
+
+|script    |ssh client    |ssh-fitnesse.dev|PREFORMATTED|
+|open connection                                        |
+|execute   |echo 012345678901234567890123456789         |
+|check     |output        |${output}                    |
+|add option|TERMINAL_WIDTH|with value      |5           |
+|execute   |echo 012345678901234567890123456789         |
+|check     |output        |${output_5}                  |
+|add option|TERMINAL_WIDTH|with value      |10          |
+|execute   |echo 012345678901234567890123456789         |
+|check     |output        |${output_10}                 |
+|close connection                                       |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!

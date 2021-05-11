@@ -1,0 +1,90 @@
+---
+Test
+---
+!1 !-SshFixture-! passphrase
+This option is used to define the passphrase file path or content. If option content does not match a file path, is evaluated as a file content. In default implementation (jsch session) passphrase will be evaluated only if private key is set. In test implementation (dummy session) this option is ignored. Other behaviours can be implemented with [[!-CustomSession-!][<UserGuide.Customization.CustomSession]]. Passphrase is a single value option so, each new definition will overwrite the previous one.
+
+Note: like every other option, can be defined in multiple ways, as shown in [[!-DefineOptions-!][<UserGuide.Options.DefineOptions]] page.
+
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!2 Define as path
+
+!***> definitions
+!define PRIVATE_KEY {/path/to/my/private/key/file}
+!define PASSPHRASE {/path/to/my/passphrase/file}
+*!
+
+|script    |ssh client |ssh-fitnesse.dev         |
+|add option|PRIVATE_KEY|with value|${PRIVATE_KEY}|
+|add option|PASSPHRASE |with value|${PASSPHRASE} |
+|open connection                                 |
+|execute   |echo foobar                          |
+|check     |output     |foobar                   |
+|close connection                                |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!define PRIVATE_KEY {/path/to/my/private/key/file}
+!define PASSPHRASE {/path/to/my/passphrase/file}
+
+|script    |ssh client |ssh-fitnesse.dev         |
+|add option|PRIVATE_KEY|with value|${PRIVATE_KEY}|
+|add option|PASSPHRASE |with value|${PASSPHRASE} |
+|open connection                                 |
+|execute   |echo foobar                          |
+|check     |output     |foobar                   |
+|close connection                                |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!
+
+!2 Define as content
+
+!***> definitions
+!define PRIVATE_KEY {/path/to/my/private/key/file}
+!define PASSPHRASE {my-pass-secret}
+*!
+
+|script    |ssh client |ssh-fitnesse.dev         |
+|add option|PRIVATE_KEY|with value|${PRIVATE_KEY}|
+|add option|PASSPHRASE |with value|${PASSPHRASE} |
+|open connection                                 |
+|execute   |echo foobar                          |
+|check     |output     |foobar                   |
+|close connection                                |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+!define PRIVATE_KEY {/path/to/my/private/key/file}
+!define PASSPHRASE {my-pass-secret}
+
+|script    |ssh client |ssh-fitnesse.dev         |
+|add option|PRIVATE_KEY|with value|${PRIVATE_KEY}|
+|add option|PASSPHRASE |with value|${PASSPHRASE} |
+|open connection                                 |
+|execute   |echo foobar                          |
+|check     |output     |foobar                   |
+|close connection                                |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+*!

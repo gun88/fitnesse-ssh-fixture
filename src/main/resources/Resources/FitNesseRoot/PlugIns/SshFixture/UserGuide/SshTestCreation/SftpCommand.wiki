@@ -1,0 +1,104 @@
+---
+Test
+---
+!2 Sftp Command
+Download and upload command are available in !-SshFixture-!.
+
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+Sftp commands are: download and upload; available in script mode only. In the following example, a file will be created in !-FitNesseRoot-!, uploaded via sftp on server and checked. Once uploaded and verified, the file will be modified on server and downloaded to !-FitNesseRoot-! to be finally checked.
+
+Note: this test could fail if FitNesse user has not permissions to write files in !-FitNesseRoot-! directory.
+
+!***> Write 'my demo file' to demo-file-client.txt
+|script|java.io.FileWriter|${FITNESSE_ROOTPATH}/demo-file-client.txt|
+|write |109                                                         |
+|write |121                                                         |
+|write |32                                                          |
+|write |100                                                         |
+|write |101                                                         |
+|write |109                                                         |
+|write |111                                                         |
+|write |32                                                          |
+|write |102                                                         |
+|write |105                                                         |
+|write |108                                                         |
+|write |101                                                         |
+|close                                                              |
+*!
+
+|script  |ssh client                               |foo/bar@ssh-fitnesse.dev                                |
+|open connection                                                                                            |
+|note    |uploading file                                                                                    |
+|upload  |${FITNESSE_ROOTPATH}/demo-file-client.txt|to|demo-file-server.txt                                 |
+|check   |output                                   |Uploaded at: demo-file-server.txt                       |
+|check   |exit code                                |0                                                       |
+|note    |check uploaded file                                                                               |
+|execute |cat demo-file-server.txt                                                                          |
+|check   |output                                   |my demo file                                            |
+|check   |exit code                                |0                                                       |
+|note    |editing file on server                                                                            |
+|execute |echo foo-bar >demo-file-server.txt                                                                |
+|note    |downloading file                                                                                  |
+|download|demo-file-server.txt                     |to|${FITNESSE_ROOTPATH}/demo-file-client.txt            |
+|check   |output                                   |Downloaded at: ${FITNESSE_ROOTPATH}/demo-file-client.txt|
+|check   |exit code                                |0                                                       |
+|note    |deleting file on server                                                                           |
+|execute |rm demo-file-server.txt                                                                           |
+|check   |exit code                                |0                                                       |
+|close connection                                                                                           |
+
+!***> read 'my demo file' to demo-file-client.txt
+|script|java.io.FileReader|${FITNESSE_ROOTPATH}/demo-file-client.txt|
+|check |read              |102                                      |
+|check |read              |111                                      |
+|check |read              |111                                      |
+|check |read              |45                                       |
+|check |read              |98                                       |
+|check |read              |97                                       |
+|check |read              |114                                      |
+|check |read              |10                                       |
+|check |read              |-1                                       |
+|close                                                              |
+
+|script|java.io.File|${FITNESSE_ROOTPATH}/demo-file-client.txt|
+|delete                                                       |
+|check |exists      |false                                    |
+*!
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+|script  |ssh client                               |foo/bar@ssh-fitnesse.dev                                |
+|open connection                                                                                            |
+|note    |uploading file                                                                                     |
+|upload  |${FITNESSE_ROOTPATH}/demo-file-client.txt|to|demo-file-server.txt                                 |
+|check   |output                                   |Uploaded at: demo-file-server.txt                       |
+|check   |exit code                                |0                                                       |
+|note    |check uploaded file                                                                               |
+|execute |cat demo-file-server.txt                                                                          |
+|check   |output                                   |my demo file                                            |
+|check   |exit code                                |0                                                       |
+|note    |editing file on server                                                                            |
+|execute |echo foo-bar >demo-file-server.txt                                                                |
+|note    |downloading file                                                                                  |
+|download|demo-file-server.txt                     |to|${FITNESSE_ROOTPATH}/demo-file-client.txt            |
+|check   |output                                   |Downloaded at: ${FITNESSE_ROOTPATH}/demo-file-client.txt|
+|check   |exit code                                |0                                                       |
+|note    |deleting file on server                                                                           |
+|execute |rm demo-file-server.txt                                                                           |
+|check   |exit code                                |0                                                       |
+|close connection                                                                                           |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+
+*!

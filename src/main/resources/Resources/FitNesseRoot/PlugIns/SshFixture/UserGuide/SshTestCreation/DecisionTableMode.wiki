@@ -1,0 +1,69 @@
+---
+Test
+---
+!2 Decision Table Mode
+Decision table mode is the simplest way to create test for !-SshFixture-! in fact, the main example, is the same described in CreateYourFirstTest page. In this page, more details are described to explain what happen under the hood.
+
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+The endpoint string (foo/bar@ssh-fitnesse.dev) must be defined in table header (if not defined via [[VM options][<UserGuide.EndpointDefinition.VmOptions]] or [[properties file][<UserGuide.EndpointDefinition.PropertiesFile]]).
+
+On table begin, a connection to the defined endpoint will be opened and closed on table end.
+The decision table take as input a command string. Its available outputs are:
+ 1 standard output stream
+ 1 standard error stream
+ 1 execution exit code
+
+|ssh client                       |foo/bar@ssh-fitnesse.dev |
+|command                          |output?|error? |exitCode?|
+|echo foo-bar                     |foo-bar|       |0        |
+|echo foo-bar 1>&2                |       |foo-bar|0        |
+|exit 123                         |       |       |123      |
+|echo foo; echo bar 1>&2; exit 234|foo    |bar    |234      |
+
+|ssh client  |foo/bar@ssh-fitnesse.dev|
+|command     |output?                 |
+|echo foo-bar|foo-bar                 |
+
+|ssh client       |foo/bar@ssh-fitnesse.dev|
+|command          |error?                  |
+|echo foo-bar 1>&2|foo-bar                 |
+
+|ssh client|foo/bar@ssh-fitnesse.dev|
+|command   |exitCode?               |
+|exit 123  |123                     |
+
+!***> code
+{{{!-
+|import                               |
+|com.github.gun88.fitnesse.fixture.ssh|
+
+|ssh client                       |foo/bar@ssh-fitnesse.dev |
+|command                          |output?|error? |exitCode?|
+|echo foo-bar                     |foo-bar|       |0        |
+|echo foo-bar 1>&2                |       |foo-bar|0        |
+|exit 123                         |       |       |123      |
+|echo foo; echo bar 1>&2; exit 234|foo    |bar    |234      |
+
+|ssh client  |foo/bar@ssh-fitnesse.dev|
+|command     |output?                 |
+|echo foo-bar|foo-bar                 |
+
+|ssh client       |foo/bar@ssh-fitnesse.dev|
+|command          |error?                  |
+|echo foo-bar 1>&2|foo-bar                 |
+
+|ssh client|foo/bar@ssh-fitnesse.dev|
+|command   |exitCode?               |
+|exit 123  |123                     |
+
+!define TEST_SYSTEM {slim}
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}
+-!}}}
+Note: if !-SshFixture-! is not installed as a plugin, remember to set or replace properties: jsch.jar.path, sshFixture.jar.path; with actual paths.
+
+Note: In this example the connection was built via username and password, that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to view different authentication and credential storing methods.
+
+*!
