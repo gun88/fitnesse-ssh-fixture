@@ -4,7 +4,7 @@ import com.github.gun88.fitnesse.plugin.ssh.SshClientPlugin;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.github.gun88.fitnesse.fixture.ssh.util.EndpointUtils.*;
+import static com.github.gun88.fitnesse.fixture.ssh.endpoint.EndpointUtils.*;
 
 @Setter
 @Getter

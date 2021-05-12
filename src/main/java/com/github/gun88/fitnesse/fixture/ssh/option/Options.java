@@ -1,6 +1,5 @@
 package com.github.gun88.fitnesse.fixture.ssh.option;
 
-import com.github.gun88.fitnesse.fixture.ssh.util.OptionUtils;
 import com.github.gun88.fitnesse.plugin.ssh.SshClientPlugin;
 import lombok.Getter;
 
@@ -38,7 +37,7 @@ public class Options {
 
     public static List<Option> of(String optionString) {
         return OptionUtils.splitOptions(optionString).stream()
-                .filter(x -> !x.isEmpty())// todo documenta che opzioni con spazio hanno bisogno di virgolette
+                .filter(x -> !x.isEmpty())
                 .map(Option::of)
                 .collect(Collectors.toList());
     }
@@ -148,7 +147,7 @@ public class Options {
         }
     }
 
-    public void overwrite(String options) {
+    public void update(String options) {
         reset();
         add(options);
     }
@@ -160,18 +159,29 @@ public class Options {
     public List<Option> dumpOptions() {
         Options options = this;
         List<Option> list = new ArrayList<>();
-        if (options.preformatted) list.add(new Option(PREFORMATTED, null));
-        if (options.ignoreCarriageReturn) list.add(new Option(IGNORE_CARRIAGE_RETURN, null));
-        if (options.sessionClassName != null) list.add(new Option(SESSION_CLASS, sessionClassName));
+        if (options.preformatted)
+            list.add(new Option(PREFORMATTED, null));
+        if (options.ignoreCarriageReturn)
+            list.add(new Option(IGNORE_CARRIAGE_RETURN, null));
+        if (options.sessionClassName != null)
+            list.add(new Option(SESSION_CLASS, sessionClassName));
         if (options.outputProcessorClassName != null)
             list.add(new Option(OUTPUT_PROCESSOR_CLASS, outputProcessorClassName));
-        if (options.knownHosts != null) list.add(new Option(KNOWN_HOSTS, knownHosts));
-        if (options.privateKey != null) list.add(new Option(PRIVATE_KEY, privateKey));
-        if (options.publicKey != null) list.add(new Option(PUBLIC_KEY, publicKey));
-        if (options.passphrase != null) list.add(new Option(PASSPHRASE, passphrase));
-        if (options.terminalWidth != 0) list.add(new Option(TERMINAL_WIDTH, terminalWidth + ""));
-        if (options.connectionTimeout != 0) list.add(new Option(CONNECTION_TIMEOUT, connectionTimeout + ""));
-        list.addAll(options.replaceExpressions.stream().map(x -> new Option(REPLACE, x.toString())).collect(Collectors.toList()));
+        if (options.knownHosts != null)
+            list.add(new Option(KNOWN_HOSTS, knownHosts));
+        if (options.privateKey != null)
+            list.add(new Option(PRIVATE_KEY, privateKey));
+        if (options.publicKey != null)
+            list.add(new Option(PUBLIC_KEY, publicKey));
+        if (options.passphrase != null)
+            list.add(new Option(PASSPHRASE, passphrase));
+        if (options.terminalWidth != 0)
+            list.add(new Option(TERMINAL_WIDTH, terminalWidth + ""));
+        if (options.connectionTimeout != 0)
+            list.add(new Option(CONNECTION_TIMEOUT, connectionTimeout + ""));
+        list.addAll(options.replaceExpressions.stream()
+                .map(x -> new Option(REPLACE, x.toString()))
+                .collect(Collectors.toList()));
         list.addAll(options.otherOptions);
 
         return list;

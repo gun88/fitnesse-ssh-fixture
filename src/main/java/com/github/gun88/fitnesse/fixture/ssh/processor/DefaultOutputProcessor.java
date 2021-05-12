@@ -3,7 +3,6 @@ package com.github.gun88.fitnesse.fixture.ssh.processor;
 import com.github.gun88.fitnesse.fixture.ssh.option.Options;
 import com.github.gun88.fitnesse.fixture.ssh.option.ReplaceExpression;
 import com.github.gun88.fitnesse.fixture.ssh.result.ExecutionResult;
-import com.github.gun88.fitnesse.fixture.ssh.util.ProcessorUtils;
 
 public class DefaultOutputProcessor implements OutputProcessor {
 

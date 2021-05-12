@@ -3,14 +3,13 @@ package com.github.gun88.fitnesse.fixture.ssh.session;
 import com.github.gun88.fitnesse.fixture.ssh.endpoint.Endpoint;
 import com.github.gun88.fitnesse.fixture.ssh.option.Options;
 import com.github.gun88.fitnesse.fixture.ssh.result.ExecutionResult;
-import com.github.gun88.fitnesse.fixture.ssh.util.SshClientUtils;
 import com.jcraft.jsch.*;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import static com.github.gun88.fitnesse.fixture.ssh.util.SessionUtils.bytesFromFileOrString;
-import static com.github.gun88.fitnesse.fixture.ssh.util.SessionUtils.inputStreamFromFileOrString;
+import static com.github.gun88.fitnesse.fixture.ssh.session.SessionUtils.bytesFromFileOrString;
+import static com.github.gun88.fitnesse.fixture.ssh.session.SessionUtils.inputStreamFromFileOrString;
 
 public class JSchSession implements SshSession {
     JSch jSch = new JSch();
@@ -55,8 +54,8 @@ public class JSchSession implements SshSession {
             InputStream errorStream = channelExec.getErrStream();
             channelExec.connect(options.getConnectionTimeout());
             ExecutionResult result = new ExecutionResult();
-            result.setOutput(SshClientUtils.toString(inputStream));
-            result.setError(SshClientUtils.toString(errorStream));
+            result.setOutput(SessionUtils.streamToString(inputStream));
+            result.setError(SessionUtils.streamToString(errorStream));
             result.setExitCode(channelExec.getExitStatus());
             channelExec.disconnect();
             return result;
@@ -72,8 +71,11 @@ public class JSchSession implements SshSession {
         try {
             ChannelSftp channelSftp = (ChannelSftp) session.openChannel("sftp");
             channelSftp.connect(options.getConnectionTimeout());
-            channelSftp.get(source, destination);
-            channelSftp.disconnect();
+            try {
+                channelSftp.get(source, destination);
+            } finally {
+                channelSftp.disconnect();
+            }
             result.setOutput("Downloaded at: " + destination);
             result.setExitCode(0);
         } catch (JSchException e) {
@@ -91,8 +93,11 @@ public class JSchSession implements SshSession {
         try {
             ChannelSftp channelSftp = (ChannelSftp) session.openChannel("sftp");
             channelSftp.connect(options.getConnectionTimeout());
-            channelSftp.put(source, destination);
-            channelSftp.disconnect();
+            try {
+                channelSftp.put(source, destination);
+            } finally {
+                channelSftp.disconnect();
+            }
             result.setOutput("Uploaded at: " + destination);
             result.setExitCode(0);
         } catch (JSchException e) {

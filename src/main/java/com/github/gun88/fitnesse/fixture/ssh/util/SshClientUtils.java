@@ -1,9 +1,5 @@
 package com.github.gun88.fitnesse.fixture.ssh.util;
 
-import com.github.gun88.fitnesse.fixture.ssh.result.ExecutionResult;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -11,26 +7,16 @@ import java.util.stream.Collectors;
 
 public class SshClientUtils {
     @SuppressWarnings("SameParameterValue")
-    static String truncateBeforeLast(String string, char character) {
+    public static String truncateBeforeLast(String string, char character) {
         return string.substring(string.lastIndexOf(character) + 1);
     }
 
-    static String truncateBeforeFirst(String string, char character) {
+    public static String truncateBeforeFirst(String string, char character) {
         return string.substring(string.indexOf(character) + 1);
     }
 
-    static String truncateAfterFirst(String string, char character) {
+    public static String truncateAfterFirst(String string, char character) {
         return string.substring(0, string.indexOf(character));
-    }
-
-    public static String toString(InputStream stream) throws IOException {
-        StringBuilder outputBuffer = new StringBuilder();
-        int readByte;
-        while ((readByte = stream.read()) != 0xffffffff) {
-            outputBuffer.append((char) readByte);
-        }
-
-        return outputBuffer.toString().trim();
     }
 
     public static List<String> splitQuoted(String optionString, char separator) {
@@ -50,13 +36,4 @@ public class SshClientUtils {
                 .collect(Collectors.toList());
     }
 
-    public static String unwrapPreformatted(String value) {
-        if (value == null) return null;
-        return value.replaceAll("^\\s*<pre>", "").replaceAll("</pre>\\s*$", "");
-    }
-
-    public static void replaceNull(ExecutionResult result) {
-        if (result.getOutput() == null) result.setOutput("");
-        if (result.getError() == null) result.setError("");
-    }
 }

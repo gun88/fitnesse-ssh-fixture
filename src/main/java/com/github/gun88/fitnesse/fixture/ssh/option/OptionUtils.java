@@ -1,4 +1,6 @@
-package com.github.gun88.fitnesse.fixture.ssh.util;
+package com.github.gun88.fitnesse.fixture.ssh.option;
+
+import com.github.gun88.fitnesse.fixture.ssh.util.SshClientUtils;
 
 import java.util.List;
 
@@ -32,5 +34,21 @@ public class OptionUtils {
 
     public static List<String> splitOptions(String optionString) {
         return SshClientUtils.splitQuoted(optionString, ' ');
+    }
+
+    public void update(Options options, String optionsString) {
+        options.update(optionsString);
+    }
+
+    public void add(Options options, String key, String value) {
+        options.add(key, value);
+    }
+
+    public void reset(Options options, String key) {
+        options.reset(key);
+    }
+
+    public void reset(Options options) {
+        options.reset();
     }
 }

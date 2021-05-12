@@ -1,4 +1,6 @@
-package com.github.gun88.fitnesse.fixture.ssh.util;
+package com.github.gun88.fitnesse.fixture.ssh.endpoint;
+
+import com.github.gun88.fitnesse.fixture.ssh.util.SshClientUtils;
 
 import static java.lang.Integer.parseInt;
 
@@ -51,4 +53,27 @@ public class EndpointUtils {
     }
 
 
+    public void update(Endpoint endpoint, String endpointString) {
+        endpoint.update(endpointString);
+    }
+
+    public void reset(Endpoint endpoint) {
+        endpoint.reset();
+    }
+
+    public void setUsername(Endpoint endpoint, String username) {
+        endpoint.setUsername(username);
+    }
+
+    public void setPassword(Endpoint endpoint, String password) {
+        endpoint.setPassword(password);
+    }
+
+    public void setHost(Endpoint endpoint, String host) {
+        endpoint.setHost(host);
+    }
+
+    public void setPort(Endpoint endpoint, String port) {
+        endpoint.setPort(Integer.parseInt(port));
+    }
 }

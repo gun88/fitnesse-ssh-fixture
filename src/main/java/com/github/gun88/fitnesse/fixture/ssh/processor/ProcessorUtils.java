@@ -1,4 +1,4 @@
-package com.github.gun88.fitnesse.fixture.ssh.util;
+package com.github.gun88.fitnesse.fixture.ssh.processor;
 
 import fitnesse.html.HtmlUtil;
 
@@ -27,7 +27,7 @@ public class ProcessorUtils {
     }
 
     public static String formatToTerminalWidth(String string, Integer terminalWidth) {
-        return Arrays.stream(string.split("\\n"))
+        return Arrays.stream(string.replace(HtmlUtil.BR.html(), "\n").split("\\n"))
                 .flatMap(line -> IntStream.rangeClosed(0, line.length() / terminalWidth)
                         .mapToObj(from -> substringFromAndSize(line, from, terminalWidth)))
                 .collect(joining(HtmlUtil.BR.html()));

@@ -1,6 +1,5 @@
 package com.github.gun88.fitnesse.fixture.ssh.option;
 
-import com.github.gun88.fitnesse.fixture.ssh.util.OptionUtils;
 import lombok.Getter;
 
 @Getter
