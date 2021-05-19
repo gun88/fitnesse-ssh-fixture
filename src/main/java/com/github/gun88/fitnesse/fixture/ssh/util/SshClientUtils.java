@@ -36,4 +36,9 @@ public class SshClientUtils {
                 .collect(Collectors.toList());
     }
 
+    public static String unwrapPreformatted(String value) {
+        if (value == null)
+            return null;
+        return value.replaceAll("^\\s*<pre>", "").replaceAll("</pre>\\s*$", "");
+    }
 }

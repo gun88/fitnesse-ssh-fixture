@@ -1,7 +1,6 @@
 package com.github.gun88.fitnesse.plugin.ssh;
 
 import com.github.gun88.fitnesse.fixture.ssh.SshClient;
-import com.github.gun88.fitnesse.plugin.ssh.util.SshClientPluginUtils;
 import com.jcraft.jsch.JSch;
 import fitnesse.FitNesseContext;
 import fitnesse.plugins.PluginException;
@@ -13,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
-import static com.github.gun88.fitnesse.plugin.ssh.util.SshClientPluginUtils.*;
+import static com.github.gun88.fitnesse.plugin.ssh.SshClientPluginUtils.*;
 import static java.util.ResourceBundle.getBundle;
 
 @Slf4j

@@ -7,14 +7,14 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.joining;
 
-public class ProcessorUtils {
-    public static String wrapPreformatted(String string) {
+class ProcessorUtils {
+    static String wrapPreformatted(String string) {
         if (string != null)
             string = string.replace(HtmlUtil.BR.html(), "\n");
         return "<pre>" + string + "</pre>";
     }
 
-    public static String manageCarriageReturn(String string) {
+    static String manageCarriageReturn(String string) {
         string = string.replaceAll("\\r\\n", "\n");
         return Arrays.stream(string.split("\\n"))
                 .map(ProcessorUtils::manageCarriageReturnInLine)
@@ -26,7 +26,7 @@ public class ProcessorUtils {
         return split[split.length - 1];
     }
 
-    public static String formatToTerminalWidth(String string, Integer terminalWidth) {
+    static String formatToTerminalWidth(String string, Integer terminalWidth) {
         return Arrays.stream(string.replace(HtmlUtil.BR.html(), "\n").split("\\n"))
                 .flatMap(line -> IntStream.rangeClosed(0, line.length() / terminalWidth)
                         .mapToObj(from -> substringFromAndSize(line, from, terminalWidth)))

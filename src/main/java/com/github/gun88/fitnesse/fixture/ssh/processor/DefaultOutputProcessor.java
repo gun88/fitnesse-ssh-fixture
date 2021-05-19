@@ -13,6 +13,9 @@ public class DefaultOutputProcessor implements OutputProcessor {
     }
 
     private String process(String string, Options options) {
+        if (string == null)
+            return null;
+
         for (ReplaceExpression expression : options.getReplaceExpressions())
             string = expression.doReplace(string);
 

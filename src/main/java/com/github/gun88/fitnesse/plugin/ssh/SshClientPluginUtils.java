@@ -1,4 +1,4 @@
-package com.github.gun88.fitnesse.plugin.ssh.util;
+package com.github.gun88.fitnesse.plugin.ssh;
 
 import fitnesse.ConfigurationParameter;
 import fitnesse.FitNesseContext;
@@ -13,12 +13,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SshClientPluginUtils {
+class SshClientPluginUtils {
     private static final String VERSION_PREFIX = "!note Release v";
     private static final String JAR_EXTENSION = ".jar";
     private static final String PLUGINS_WIKI_DIRNAME = "PlugIns";
 
-    public static File getCodeSourceLocation(Class<?> klass) {
+    static File getCodeSourceLocation(Class<?> klass) {
         try {
             return new File(klass.getProtectionDomain().getCodeSource().getLocation().toURI());
         } catch (URISyntaxException e) {
@@ -26,7 +26,7 @@ public class SshClientPluginUtils {
         }
     }
 
-    public static String retrieveVersionFromWikiFile(Path fromFilesystem) throws IOException {
+    static String retrieveVersionFromWikiFile(Path fromFilesystem) throws IOException {
         return (fromFilesystem.toFile().exists()) ? retrieveVersion(Files.readAllLines(fromFilesystem)) : null;
     }
 
@@ -39,7 +39,7 @@ public class SshClientPluginUtils {
                 .orElse(null);
     }
 
-    public static List<String> readAllLinesFromClasspath(InputStream inputStream) throws IOException {
+    static List<String> readAllLinesFromClasspath(InputStream inputStream) throws IOException {
         if (inputStream == null)
             return Collections.emptyList();
         List<String> resultStringBuilder = new ArrayList<>();
@@ -51,7 +51,7 @@ public class SshClientPluginUtils {
         return resultStringBuilder;
     }
 
-    public static void copyInputStreamToFile(InputStream inputStream, File destinationFile) throws IOException {
+    static void copyInputStreamToFile(InputStream inputStream, File destinationFile) throws IOException {
         createParentPath(destinationFile);
         try (FileOutputStream outputStream = new FileOutputStream(destinationFile, false)) {
             int read;
@@ -69,16 +69,17 @@ public class SshClientPluginUtils {
             throw new RuntimeException("Can not create path: " + parentFile);
     }
 
-    public static boolean isOmittingUpdates(FitNesseContext context) {
+    static boolean isOmittingUpdates(FitNesseContext context) {
         return "true".equalsIgnoreCase(context.getProperty(ConfigurationParameter.OMITTING_UPDATES.getKey()));
     }
 
-    public static boolean isJar(File file) {
+    static boolean isJar(File file) {
         return file.isFile() && file.getPath().endsWith(JAR_EXTENSION);
 
     }
 
-    public static void replaceInFile(String rootPagePath, String mainWikiFile, String key, String replace) throws IOException {
+    @SuppressWarnings("SameParameterValue")
+    static void replaceInFile(String rootPagePath, String mainWikiFile, String key, String replace) throws IOException {
         Path path = toPluginWikiFilePath(rootPagePath, mainWikiFile);
         List<String> lines = Files.readAllLines(path).stream()
                 .map(line -> line.replace("${" + key + "}", replace))
@@ -86,7 +87,7 @@ public class SshClientPluginUtils {
         Files.write(path, lines);
     }
 
-    public static Path toPluginWikiFilePath(String rootPagePath, String mainWikiFile) {
+    static Path toPluginWikiFilePath(String rootPagePath, String mainWikiFile) {
         return Paths.get(rootPagePath, PLUGINS_WIKI_DIRNAME, mainWikiFile);
     }
 }

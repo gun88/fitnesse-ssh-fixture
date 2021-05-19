@@ -1,6 +1,5 @@
 package com.github.gun88.fitnesse.plugin.ssh;
 
-import com.github.gun88.fitnesse.plugin.ssh.util.SshClientPluginUtils;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 

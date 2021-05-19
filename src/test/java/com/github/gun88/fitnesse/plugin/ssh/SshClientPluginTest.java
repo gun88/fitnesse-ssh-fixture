@@ -20,7 +20,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Properties;
 
-import static com.github.gun88.fitnesse.plugin.ssh.util.SshClientPluginUtils.getCodeSourceLocation;
+import static com.github.gun88.fitnesse.plugin.ssh.SshClientPluginUtils.getCodeSourceLocation;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;

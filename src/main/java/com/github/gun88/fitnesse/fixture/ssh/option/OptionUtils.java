@@ -4,22 +4,22 @@ import com.github.gun88.fitnesse.fixture.ssh.util.SshClientUtils;
 
 import java.util.List;
 
-public class OptionUtils {
+class OptionUtils {
 
-    public static String extractOptionKey(String string) {
+    static String extractOptionKey(String string) {
         if (string.contains("="))
             return SshClientUtils.truncateAfterFirst(string, '=').trim();
         return string;
     }
 
-    public static String extractOptionValue(String string) {
+    static String extractOptionValue(String string) {
         if (string.contains("="))
             return SshClientUtils.truncateBeforeFirst(string, '=').trim();
         else
             return null;
     }
 
-    public static String unQuote(String string) {
+    static String unQuote(String string) {
         if (string == null)
             return null;
         string = string.trim();
@@ -32,23 +32,8 @@ public class OptionUtils {
 
     }
 
-    public static List<String> splitOptions(String optionString) {
+    static List<String> splitOptions(String optionString) {
         return SshClientUtils.splitQuoted(optionString, ' ');
     }
 
-    public void update(Options options, String optionsString) {
-        options.update(optionsString);
-    }
-
-    public void add(Options options, String key, String value) {
-        options.add(key, value);
-    }
-
-    public void reset(Options options, String key) {
-        options.reset(key);
-    }
-
-    public void reset(Options options) {
-        options.reset();
-    }
 }

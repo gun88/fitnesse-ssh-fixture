@@ -5,21 +5,21 @@ import com.github.gun88.fitnesse.fixture.ssh.option.Option;
 import com.github.gun88.fitnesse.fixture.ssh.option.Options;
 import com.github.gun88.fitnesse.fixture.ssh.result.ExecutionResult;
 import com.github.gun88.fitnesse.fixture.ssh.util.SshClientUtils;
-import fitnesse.html.HtmlUtil;
 import lombok.AllArgsConstructor;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class DummySession implements SshSession {
 
-    private final Map<String, StringWriter> streams = new HashMap<>();
+    final Map<String, StringWriter> streams = new HashMap<>();
     private Endpoint endpoint;
     private Options options;
     private boolean connectionOpen;
@@ -118,56 +118,23 @@ public class DummySession implements SshSession {
             this.streams.get("2").append(e.getMessage());
             return 1;
         }
-        switch (command.name.toLowerCase()) {
-            case "echo":
-                return echo(command.parameters, streams);
-            case "sleep":
-                return sleep(command.parameters, streams);
-            case "exit":
-                return exit(command.parameters, streams);
-            case "dump-endpoint":
-                return dumpEndpoint(command.parameters, streams);
-            case "ls":
-                return ls(command.parameters, streams);
-            case "date":
-                return date(command.parameters, streams);
-            case "cat":
-                return cat(command.parameters, streams);
-            case "rm":
-                return rm(command.parameters, streams);
-            case "dump-options":
-                return dumpOptions(command.parameters, streams);
-            default:
-                return unknownCommand(command.name, streams);
-        }
-    }
-
-    private int ls(List<String> parameters, DummyStreams streams) {
         try {
-            List<String> options = extractOptions(parameters);
-            parameters.removeAll(options);
-
-            boolean hasHidden = options.stream().anyMatch(x -> x.contains("a"));
-            boolean hasList = options.stream().anyMatch(x -> x.contains("l"));
-
-            List<String> files = new ArrayList<>();
-
-            if (hasHidden) {
-                files.add(".");
-                files.add("..");
+            switch (command.name.toLowerCase()) {
+                case "echo":
+                    return echo(command.parameters, streams);
+                case "exit":
+                    return exit(command.parameters, streams);
+                case "dump-endpoint":
+                    return dumpEndpoint(command.parameters, streams);
+                case "cat":
+                    return cat(command.parameters, streams);
+                case "rm":
+                    return rm(command.parameters);
+                case "dump-options":
+                    return dumpOptions(command.parameters, streams);
+                default:
+                    return unknownCommand(command.name, streams);
             }
-
-            IntStream.range(0, 10).forEach(x -> files.add("file" + x + ".txt"));
-
-            if (hasList) {
-                streams.out.append(files.stream()
-                        .map(x -> "-rwxrwxrwx 1 " + endpoint.getUsername() + " " + endpoint.getUsername() + "        20 Oct 29  2020 " + x)
-                        .collect(Collectors.joining(HtmlUtil.BR.html())));
-            } else {
-                streams.out.append(String.join(" ", files));
-            }
-
-            return 0;
         } catch (Exception e) {
             streams.err.append(e.getMessage());
             return 1;
@@ -175,19 +142,14 @@ public class DummySession implements SshSession {
     }
 
     private int dumpEndpoint(List<String> parameters, DummyStreams streams) {
-        try {
-            List<String> options = extractOptions(parameters);
-            parameters.removeAll(options);
+        List<String> options = extractOptions(parameters);
+        parameters.removeAll(options);
 
-            streams.out.append(parameters.isEmpty() ? endpoint.toString() : parameters.stream()
-                    .map(this::fromEndpoint)
-                    .collect(Collectors.joining(" ")));
+        streams.out.append(parameters.isEmpty() ? endpoint.toString() : parameters.stream()
+                .map(this::fromEndpoint)
+                .collect(Collectors.joining(" ")));
 
-            return 0;
-        } catch (Exception e) {
-            streams.err.append(e.getMessage());
-            return 1;
-        }
+        return 0;
     }
 
     private String fromEndpoint(String part) {
@@ -206,69 +168,35 @@ public class DummySession implements SshSession {
     }
 
     private int dumpOptions(List<String> parameters, DummyStreams streams) {
-        try {
-            List<String> options = extractOptions(parameters);
-            parameters.removeAll(options);
+        List<String> options = extractOptions(parameters);
+        parameters.removeAll(options);
 
-            List<Option> optionList = this.options.dumpOptions();
-            if (!parameters.isEmpty())
-                optionList = optionList.stream()
-                        .filter(x -> parameters.contains(x.getKey()))
-                        .collect(Collectors.toList());
+        List<Option> optionList = this.options.dumpOptions();
+        if (!parameters.isEmpty())
+            optionList = optionList.stream()
+                    .filter(x -> parameters.contains(x.getKey()))
+                    .collect(Collectors.toList());
 
-            streams.out.append(optionList.stream()
-                    .map(Option::toString)
-                    .collect(Collectors.joining(" ")));
-            return 0;
-        } catch (Exception e) {
-            streams.err.append(e.getMessage());
-            return 1;
-        }
-    }
-
-
-    private int date(List<String> parameters, DummyStreams streams) {
-        if (parameters.size() > 1) {
-            streams.err.append("too many arguments");
-            return 1;
-        }
-        try {
-            String date;
-            SimpleDateFormat sdf = !parameters.isEmpty() ? new SimpleDateFormat(parameters.get(0)) : null;
-            date = sdf != null ? sdf.format(new Date()) : new Date().toString();
-            streams.out.append(date);
-            return 0;
-        } catch (NumberFormatException e) {
-            streams.err.append(e.getMessage());
-            return 1;
-        }
-
+        streams.out.append(optionList.stream()
+                .map(Option::toString)
+                .collect(Collectors.joining(" ")));
+        return 0;
     }
 
     private int cat(List<String> parameters, DummyStreams streams) {
-        try {
-            parameters.stream()
-                    .filter(this.streams::containsKey)
-                    .map(this.streams::get)
-                    .map(StringWriter::toString)
-                    .forEach(streams.out::append);
-            return 0;
-        } catch (Exception e) {
-            streams.err.append(e.getMessage());
-            return 1;
-        }
+        parameters.stream()
+                .filter(this.streams::containsKey)
+                .map(this.streams::get)
+                .map(StringWriter::toString)
+                .forEach(streams.out::append);
+        return 0;
     }
 
-    private int rm(List<String> parameters, DummyStreams streams) {
-        try {
-            parameters.stream()
-                    .filter(this.streams::containsKey)
-                    .forEach(this.streams::remove);
-            return 0;
-        } catch (Exception e) {
-            streams.err.append(e.getMessage());
-            return 1;
-        }
+    private int rm(List<String> parameters) {
+        parameters.stream()
+                .filter(this.streams::containsKey)
+                .forEach(this.streams::remove);
+        return 0;
     }
 
     @SuppressWarnings("SameReturnValue")
@@ -285,45 +213,25 @@ public class DummySession implements SshSession {
         try {
             return Integer.parseInt(parameters.get(0));
         } catch (NumberFormatException e) {
-            streams.err.append(e.getMessage());
-            return 1;
-        }
-    }
-
-    private int sleep(List<String> parameters, DummyStreams streams) {
-        if (parameters.size() != 1) {
-            streams.err.append("too many arguments");
-            return 1;
-        }
-        try {
-            Thread.sleep(Integer.parseInt(parameters.get(0)));
-            return 0;
-        } catch (NumberFormatException | InterruptedException e) {
-            streams.err.append(e.getMessage());
-            return 1;
+            throw new RuntimeException("can not parse: " + parameters.get(0));
         }
     }
 
     private int echo(List<String> parameters, DummyStreams streams) {
-        try {
-            List<String> options = extractOptions(parameters);
-            parameters.removeAll(options);
-            String out = parameters.stream()
-                    .map(x -> x.startsWith("\"") && x.endsWith("\"") ? x.substring(1, x.length() - 1) : x)
-                    .collect(Collectors.joining(" "));
-            if (options.contains("-e")) {
-                out = out.replace("\\r", "\r");
-            }
-            streams.out.append(out);
-
-            if (!streams.out.equals(this.streams.get("1")) && !streams.out.equals(this.streams.get("2"))) {
-                streams.out.append("\n");
-            }
-            return 0;
-        } catch (Exception e) {
-            streams.err.append(e.getMessage());
-            return 1;
+        List<String> options = extractOptions(parameters);
+        parameters.removeAll(options);
+        String out = parameters.stream()
+                .map(x -> x.startsWith("\"") && x.endsWith("\"") ? x.substring(1, x.length() - 1) : x)
+                .collect(Collectors.joining(" "));
+        if (options.contains("-e")) {
+            out = out.replace("\\r", "\r");
         }
+        streams.out.append(out);
+
+        if (!streams.out.equals(this.streams.get("1")) && !streams.out.equals(this.streams.get("2"))) {
+            streams.out.append("\n");
+        }
+        return 0;
     }
 
     private DummyStreams buildStreams(String streamParameter) throws Exception {
@@ -389,9 +297,6 @@ public class DummySession implements SshSession {
         private final List<String> parameters;
         private final String streamParameter;
 
-        public ExecutionResult execute() {
-            return new ExecutionResult();
-        }
     }
 
     @AllArgsConstructor

@@ -20,7 +20,6 @@ public class Endpoint {
         return toConnectionString(username, password, host, port);
     }
 
-
     public void update(String connectionString) {
         username = extractUsername(connectionString);
         password = extractPassword(connectionString);
@@ -37,5 +36,6 @@ public class Endpoint {
         if (fromProperties != null)
             update(fromProperties);
     }
+
 }
 

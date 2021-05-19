@@ -5,13 +5,12 @@ import com.github.gun88.fitnesse.fixture.ssh.option.Options;
 import com.github.gun88.fitnesse.fixture.ssh.processor.OutputProcessor;
 import com.github.gun88.fitnesse.fixture.ssh.processor.OutputProcessorFactory;
 import com.github.gun88.fitnesse.fixture.ssh.result.ExecutionResult;
-import com.github.gun88.fitnesse.fixture.ssh.result.ExecutionResultUtils;
 import com.github.gun88.fitnesse.fixture.ssh.session.SessionFactory;
 import com.github.gun88.fitnesse.fixture.ssh.session.SshSession;
 
 import java.io.IOException;
 
-import static com.github.gun88.fitnesse.fixture.ssh.util.TableUtils.unwrapPreformatted;
+import static com.github.gun88.fitnesse.fixture.ssh.util.SshClientUtils.unwrapPreformatted;
 import static java.lang.Integer.parseInt;
 
 public class SshClient {
@@ -90,19 +89,16 @@ public class SshClient {
 
     public void execute(String command) throws IOException {
         result = session.execute(unwrapPreformatted(command));
-        ExecutionResultUtils.replaceNull(result);
         outputProcessor.after(result, options);
     }
 
     public void downloadTo(String source, String destination) throws IOException {
         result = session.download(unwrapPreformatted(source), unwrapPreformatted(destination));
-        ExecutionResultUtils.replaceNull(result);
         outputProcessor.after(result, options);
     }
 
     public void uploadTo(String source, String destination) throws IOException {
         result = session.upload(unwrapPreformatted(source), unwrapPreformatted(destination));
-        ExecutionResultUtils.replaceNull(result);
         outputProcessor.after(result, options);
     }
 
