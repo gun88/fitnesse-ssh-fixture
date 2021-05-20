@@ -1,5 +1,5 @@
 !1 !-Plugin Mode Installation-!
-As shown in [[!-QuickStart-!][<UserGuide]] session, the plugin mode installation can be executed just placing the fitnesse-ssh-fixture.jar in the FitNesse plugin direcotry or by making the jar file available in the FitNesse web server classpath. When the archive is available in classpath, documentation files and dependency libraries are automatically extracted and tuned.
+As shown in [[!-QuickStart-!][<UserGuide]] session, the plugin mode installation can be executed just placing the fitnesse-ssh-fixture.jar in the FitNesse plugin directory or by making the jar file available in the FitNesse web server classpath. When the archive is available in classpath, documentation files and dependency libraries are automatically extracted and tuned.
 
 !2 Documentation
 Documentation files are automatically extracted in the [[!-FitNesse PlugIns-!][<PlugIns.]] directory.

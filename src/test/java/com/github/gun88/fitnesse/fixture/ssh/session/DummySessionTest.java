@@ -125,8 +125,8 @@ public class DummySessionTest {
         assertEquals("foo bar", result.getOutput());
         assertEquals("", result.getError());
         assertEquals(0, result.getExitCode());
-        result = dummySession.execute("echo -e foo\\rbar");
-        assertEquals("foo\rbar", result.getOutput());
+        result = dummySession.execute("echo -e foo\\rBar");
+        assertEquals("foo\rBar", result.getOutput());
         assertEquals("", result.getError());
         assertEquals(0, result.getExitCode());
     }

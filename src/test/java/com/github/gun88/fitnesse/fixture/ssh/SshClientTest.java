@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class SshClientTest {
 
@@ -33,23 +34,10 @@ public class SshClientTest {
         sshClient.addOptionWithValue("TERMINAL_WIDTH", "90");
 
         sshClient.beginTable();
-        sshClient.setCommand("ls -la");
+        sshClient.setCommand("echo foobar");
         sshClient.execute();
         sshClient.endTable();
-        assertEquals("<pre>" +
-                "-rwxrwxrwx 1 foo foo        20 Oct 29  2020 ." + "\n" +
-                "-rwxrwxrwx 1 foo foo        20 Oct 29  2020 .." + "\n" +
-                "-rwxrwxrwx 1 foo foo        20 Oct 29  2020 file0.txt" + "\n" +
-                "-rwxrwxrwx 1 foo foo        20 Oct 29  2020 file1.txt" + "\n" +
-                "-rwxrwxrwx 1 foo foo        20 Oct 29  2020 file2.txt" + "\n" +
-                "-rwxrwxrwx 1 foo foo        20 Oct 29  2020 file3.txt" + "\n" +
-                "-rwxrwxrwx 1 foo foo        20 Oct 29  2020 file4.txt" + "\n" +
-                "-rwxrwxrwx 1 foo foo        20 Oct 29  2020 file5.txt" + "\n" +
-                "-rwxrwxrwx 1 foo foo        20 Oct 29  2020 file6.txt" + "\n" +
-                "-rwxrwxrwx 1 foo foo        20 Oct 29  2020 file7.txt" + "\n" +
-                "-rwxrwxrwx 1 foo foo        20 Oct 29  2020 file8.txt" + "\n" +
-                "-rwxrwxrwx 1 foo foo        20 Oct 29  2020 file9.txt" +
-                "</pre>", sshClient.output());
+        assertEquals("<pre>foobar</pre>", sshClient.output());
         assertEquals("<pre></pre>", sshClient.error());
         assertEquals(0, sshClient.exitCode());
     }
@@ -66,7 +54,7 @@ public class SshClientTest {
 
         sshClient.uploadTo(file.getPath(), "my-file.txt");
         assertEquals("Uploaded at: my-file.txt", sshClient.output());
-        assertEquals("", sshClient.error());
+        assertNull(sshClient.error());
         assertEquals(0, sshClient.exitCode());
 
         sshClient.execute("cat my-file.txt");
@@ -81,7 +69,7 @@ public class SshClientTest {
 
         sshClient.downloadTo("my-file.txt", file.getPath());
         assertEquals("Downloaded at: " + file.getPath(), sshClient.output());
-        assertEquals("", sshClient.error());
+        assertNull(sshClient.error());
         assertEquals(0, sshClient.exitCode());
 
         sshClient.closeConnection();

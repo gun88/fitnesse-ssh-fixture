@@ -58,7 +58,4 @@ public class SessionUtilsTest {
         assertEquals("my-content", new String(bytes).trim());
     }
 
-    @Test
-    public void streamToString() {
-    }
 }

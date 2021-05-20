@@ -141,6 +141,7 @@ public class DummySession implements SshSession {
         }
     }
 
+    @SuppressWarnings("SameReturnValue")
     private int dumpEndpoint(List<String> parameters, DummyStreams streams) {
         List<String> options = extractOptions(parameters);
         parameters.removeAll(options);
@@ -148,7 +149,6 @@ public class DummySession implements SshSession {
         streams.out.append(parameters.isEmpty() ? endpoint.toString() : parameters.stream()
                 .map(this::fromEndpoint)
                 .collect(Collectors.joining(" ")));
-
         return 0;
     }
 
@@ -167,6 +167,7 @@ public class DummySession implements SshSession {
         }
     }
 
+    @SuppressWarnings("SameReturnValue")
     private int dumpOptions(List<String> parameters, DummyStreams streams) {
         List<String> options = extractOptions(parameters);
         parameters.removeAll(options);
@@ -183,6 +184,7 @@ public class DummySession implements SshSession {
         return 0;
     }
 
+    @SuppressWarnings("SameReturnValue")
     private int cat(List<String> parameters, DummyStreams streams) {
         parameters.stream()
                 .filter(this.streams::containsKey)
@@ -192,6 +194,7 @@ public class DummySession implements SshSession {
         return 0;
     }
 
+    @SuppressWarnings("SameReturnValue")
     private int rm(List<String> parameters) {
         parameters.stream()
                 .filter(this.streams::containsKey)
@@ -217,6 +220,7 @@ public class DummySession implements SshSession {
         }
     }
 
+    @SuppressWarnings("SameReturnValue")
     private int echo(List<String> parameters, DummyStreams streams) {
         List<String> options = extractOptions(parameters);
         parameters.removeAll(options);

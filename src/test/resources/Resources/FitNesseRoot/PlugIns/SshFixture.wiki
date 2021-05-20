@@ -1,0 +1,4 @@
+!contents -R2 -g -p -f -h
+!note Release v0.0.0
+!path ${jsch.jar.path}
+!path ${sshFixture.jar.path}

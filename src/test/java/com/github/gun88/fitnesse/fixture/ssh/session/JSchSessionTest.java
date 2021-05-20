@@ -143,7 +143,7 @@ public class JSchSessionTest {
     }
 
     @Test(expected = IOException.class)
-    public void download_shouldThrowIoException_whenJschExceptionThrown() throws IOException, JSchException, SftpException {
+    public void download_shouldThrowIoException_whenJschExceptionThrown() throws IOException, JSchException {
         jSchSession.open(ENDPOINT, OPTIONS);
         when(session.openChannel("sftp")).thenThrow(JSchException.class);
         jSchSession.download("src", "dest");
@@ -183,7 +183,7 @@ public class JSchSessionTest {
     }
 
     @Test(expected = IOException.class)
-    public void upload_shouldThrowIoException_whenJschExceptionThrown() throws IOException, JSchException, SftpException {
+    public void upload_shouldThrowIoException_whenJschExceptionThrown() throws IOException, JSchException {
         jSchSession.open(ENDPOINT, OPTIONS);
         when(session.openChannel("sftp")).thenThrow(JSchException.class);
         jSchSession.upload("src", "dest");

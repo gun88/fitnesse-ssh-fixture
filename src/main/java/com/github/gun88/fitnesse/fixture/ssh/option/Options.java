@@ -35,7 +35,7 @@ public class Options {
     private List<ReplaceExpression> replaceExpressions = new ArrayList<>();
     private List<Option> otherOptions = new ArrayList<>();
 
-    public static List<Option> of(String optionString) {
+    private static List<Option> of(String optionString) {
         return OptionUtils.splitOptions(optionString).stream()
                 .filter(x -> !x.isEmpty())
                 .map(Option::of)
