@@ -103,9 +103,8 @@ export class PageService {
 
   redirect(page: string) {
     this.getPageUrl();
-    let queryParams = {};
-    //queryParams[page] = '';
-    this.router.navigate([page], {queryParams: queryParams, skipLocationChange: true});
+    const queryParams = {};
+    this.router.navigate([page], {queryParams, skipLocationChange: true});
   }
 
   private isStaticPage(pageName) {

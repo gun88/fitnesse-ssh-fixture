@@ -7,7 +7,7 @@ import {NavbarComponent} from './component/navbar/navbar.component';
 import {JumbotronComponent} from './component/jumbotron/jumbotron.component';
 import {FooterComponent} from './component/footer/footer.component';
 import {NotFoundComponent} from './page/common/not-found.component';
-import {ReadmeComponent} from './component/readme/readme.component';
+import {ReadmeComponent, SafeHtmlPipe} from './component/readme/readme.component';
 import {HttpClientModule} from '@angular/common/http';
 import {RecapTableComponent} from './component/recap-table/recap-table.component';
 import {FrontPageComponent} from './page/front-page.component';
@@ -112,7 +112,8 @@ import {EndpointDefinitionComponent} from './page/plug-ins/ssh-fixture/user-guid
     InstallationComponent,
     OptionsComponent,
     SshTestCreationComponent,
-    EndpointDefinitionComponent
+    EndpointDefinitionComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,

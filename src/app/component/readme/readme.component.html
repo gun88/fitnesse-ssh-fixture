@@ -3,6 +3,6 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<div [innerHTML]="readme" id="readme-content">
+<div [innerHTML]="readme | safeHtml" id="readme-content">
 
 </div>
