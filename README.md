@@ -1,36 +1,41 @@
 # fitnesse-ssh-fixture
 FitNesse fixture for SSH and SFTP connections - [![Maven Central](https://img.shields.io/maven-central/v/com.github.gun88/fitnesse-ssh-fixture.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.gun88%22%20AND%20a:%22fitnesse-ssh-fixture%22)
 
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Documentation](#documentation)
+- [Installation](#installation)
+- [Running](#running)
+- [Build](#build)
+- [Releases](#releases)
+
 ## Quick Start
 1. Download release file: [fitnesse-ssh-fixture-1.0.0.jar](https://github.com/gun88/fitnesse-ssh-fixture/releases/download/v1.0.0/fitnesse-ssh-fixture-1.0.0.jar)
 2. Put `fitnesse-ssh-fixture-1.0.0.jar` in the `plugins` directory (or add it to the classpath)
 3. Run FitNesse and navigate PlugIns suite to get fitnesse-ssh-fixture UserGuide and Examples
 
-*Note: As shown in QuickStart session, the plugin mode installation can be executed just placing 
+*Note: As shown in [QuickStart](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide) documentation session, the plugin mode installation can be executed just placing 
 the fitnesse-ssh-fixture.jar in the FitNesse plugin directory or by making the jar file available 
 in the FitNesse web server classpath. When the archive is available in classpath, documentation 
 files and dependency libraries are automatically extracted and tuned. To know more about 
-other installation methods, go to Installation documentation page*
+other installation methods, go to [Installation](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide.Installation) documentation page*
 
-## Table of Contents
+## Documentation
+Documentation is automatically extracted in [plugin mode](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide.Installation.PluginMode) or via [auto-extraction tool](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide.Installation.AutoExtractionMode). Is also 
+available online [here](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide).
 
-- [Quick Start](#quick-start)
-- [Build](#build)
-- [Running](#running)
-  - [Standard Mode](#standard-mode)
-  - [Classpath Mode](#classpath-mode)
-- [Releases](#releases)
+Check documentation to know more about:
+1. [Installation](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide.Installation)
+1. [SshTestCreation](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide.SshTestCreation)
+1. [EndpointDefinition](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide.EndpointDefinition)
+1. [Options](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide.Options)
+1. [Customization](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide.Customization)
 
-## Build
-The fitnesse-ssh-fixture build can be executed via Maven.
-
-Produced build will be a jar named `fitnesse-ssh-fixture-x.y.z.jar`, available under `target` directory.
-
-*Note: build version number instead of `x.y.z`*
-
-Execute `mvn clean package` (or `mvn clean verify` to execute integration tests 
-or `mvn clean install` to make `fitnesse-ssh-fixture-x.y.z.jar` available in your
-local repository)
+## Installation
+SshFixture can be installed as a plugin or just provided during test executions. The suggested 
+installation mode is the [plugin mode](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide.Installation.PluginMode).
+More details on installation modes are available [here](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide.Installation)
 
 ## Running
 Once installed in your FitNesse distribution, start creating your first test. Tests can 
@@ -59,19 +64,19 @@ want to make real calls, replace it with an actual ssh server hostname*
 properties: jsch.jar.path, sshFixture.jar.path; with actual paths*
 
 *Note: In this example the connection was built via username and password, 
-that are set in plain text in table header. Click [[here][<UserGuide.EndpointDefinition]] to 
+that are set in plain text in table header. Click [here](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide.EndpointDefinition) to 
 view different authentication and credential storing methods*
 
-## Documentation
-Check documentation to know more about:
-1. Installation
-1. SshTestCreation
-1. EndpointDefinition
-1. Options
-1. Customization
- 
-Documentation is available here and is also auto-extracted when installed in plugin mode or 
-with extraction utility
+## Build
+The fitnesse-ssh-fixture build can be executed via Maven.
+
+Produced build will be a jar named `fitnesse-ssh-fixture-x.y.z.jar`, available under `target` directory.
+
+*Note: build version number instead of `x.y.z`*
+
+Execute `mvn clean package` (or `mvn clean verify` to execute integration tests 
+or `mvn clean install` to make `fitnesse-ssh-fixture-x.y.z.jar` available in your
+local repository)
 
 ## Releases
 ### v1.0.0 (fitnesse-ssh-fixture)
