@@ -1,0 +1,103 @@
+<div class="fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light p-0 pr-3 pl-3">
+    <a class="navbar-brand p-1" href=".">
+      <img alt="FitNesse" height="37px" src="assets/bootstrap-4/img/fitnesse-logo.svg" width="200px">
+    </a>
+    <button *ngIf="pageType!=='EDITING' && pageType!=='NOT_FOUND'" aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            class="navbar-toggler"
+            data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div *ngIf="pageType!=='EDITING' && pageType!=='NOT_FOUND'" class="collapse navbar-collapse"
+         id="navbarSupportedContent">
+      <ul *ngIf="pageType==='FRONT_PAGE'" class="nav navbar-nav ml-auto mr-2">
+        <li><a [href]="env.gitHubUrl"><img alt="github" class="blacktocat" src="assets/images/blacktocat-dark.png">GitHub</a>
+        </li>
+        <li><a [href]="env.downloadUrl"><img alt="download" class="blacktocat" src="assets/images/download.png">Download</a>
+        </li>
+        <li><a href="PlugIns.SshFixture.UserGuide"><img alt="user-guide" class="blacktocat"
+                                                        src="assets/images/user-guide.png">User Guide</a>
+        </li>
+
+      </ul>
+
+
+      <ul *ngIf="['SUITE','STATIC','TEST'].includes(pageType)" class="nav navbar-nav">
+        <li *ngIf="pageType==='TEST'"><a accesskey="t" href="{{pageUrl}}?test">Test</a></li>
+        <li *ngIf="pageType==='SUITE'"><a accesskey="t" href="{{pageUrl}}?suite">Suite</a></li>
+        <li><a accesskey="e" href="EditPage">Edit</a></li>
+
+        <li aria-haspopup="true" class="dropdown" id="add">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Add <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="AddPage">Static Page</a></li>
+            <li><a href="AddPage">Suite Page</a></li>
+            <li><a href="AddPage">Test Page</a></li>
+          </ul>
+        </li>
+
+        <li aria-haspopup="true" class="dropdown" id="tools">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tools <b class="caret"></b></a>
+
+          <ul class="dropdown-menu">
+            <li><a accesskey="p" href="properties">Properties</a></li>
+            <li><a accesskey="w" href="whereUsed">Where Used</a></li>
+            <li><a accesskey="v" href="versions">Versions</a></li>
+            <!--<li><a href="{{pageUrl}}?properties" accesskey="p">Properties</a></li>
+            <li><a href="{{pageUrl}}?whereUsed" accesskey="w">Where Used</a></li>
+            <li><a href="{{pageUrl}}?versions" accesskey="v">Versions</a></li>-->
+
+            <li class="divider"><a href="RefactorPage?refactor&amp;type=rename">Rename</a></li>
+            <li><a href="RefactorPage?refactor&amp;type=move">Move</a></li>
+            <li><a href="RefactorPage?refactor&amp;type=replace">Replace</a></li>
+            <li><a href="DeletePage?deletePage">Delete</a></li>
+            <li class="divider"><a accesskey="f" href="files">Files</a></li>
+            <li><a accesskey="s" href="search">Search</a></li>
+            <li><a accesskey="" href="RecentChanges">Recent Changes</a></li>
+
+
+            <li class="divider"><a accesskey="" href="FrontPage">User Guide</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <form *ngIf="['SUITE','STATIC','TEST'].includes(pageType)" action="search" class="form-inline my-2 my-lg-0"
+            role="search">
+        <input name="responder" type="hidden" value="search"/>
+        <input name="searchScope" type="hidden" value="root"/>
+        <input name="searchType" type="hidden" value="Search Titles"/>
+        <input aria-label="Search" class="form-control form-control-sm" id="searchString"
+               name="searchString" placeholder="Search for page"
+               type="search"/>
+      </form>
+    </div>
+  </nav>
+
+
+  <div *ngIf="pageType!=='NOT_FOUND'" class="bg-white-bottom-faded w-100 align-items-center d-flex p-0 pr-3 pl-3">
+    <ol *ngIf="pageType==='DISABLED'" class="breadcrumb bg-transparent mb-0 p-2 pl-0">
+
+      <li aria-current="page" class="breadcrumb-item">
+        <span>Default Responder</span>
+      </li>
+    </ol>
+    <ol *ngIf="pageType!=='DISABLED'" class="breadcrumb bg-transparent mb-0 p-2 pl-0">
+
+      <li *ngFor="let urlSegment of urlSegments" aria-current="page" class="breadcrumb-item">
+        <a href="{{urlSegment.url}}">{{urlSegment.pageName}}</a>
+        <span *ngIf="urlSegment.pageName.toLowerCase().includes('demo')">&nbsp;</span>
+        <span *ngIf="urlSegment.pageName.toLowerCase().includes('demo')" class="tag">demo</span>
+      </li>
+    </ol>
+    <div *ngIf="pageType!=='DISABLED'" aria-label="Page Actions"
+         class="page-actions btn-group btn-group-xs ml-auto p-2 pr-0"
+         role="group">
+      <button class="expandall btn btn-light" type="button">Expand All</button>
+      <button class="collapseall btn btn-light" type="button">Collapse All</button>
+    </div>
+  </div>
+
+</div>

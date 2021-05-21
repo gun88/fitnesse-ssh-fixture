@@ -1,0 +1,8 @@
+<div *ngIf="!readme" class="d-flex">
+  <div class="spinner-border text-primary m-auto" role="status" style="width: 5rem;height: 5rem">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div [innerHTML]="readme" id="readme-content">
+
+</div>

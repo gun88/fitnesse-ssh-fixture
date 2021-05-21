@@ -1,0 +1,13 @@
+footer {
+  span + span:before {
+    content: '|';
+    margin-left: .5rem;
+    margin-right: .5rem;
+  }
+}
+
+
+.blacktocat {
+  margin-top: -2px;
+  margin-right: 5px;
+}

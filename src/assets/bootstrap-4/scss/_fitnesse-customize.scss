@@ -1,0 +1,599 @@
+/* Bootstrap - customization */
+.btn-xs {
+  @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $btn-font-size-xs, $btn-line-height-xs, $btn-border-radius-xs);
+}
+
+.btn-group-xs > .btn {
+  @extend .btn-xs;
+}
+
+#navbarSupportedContent {
+  > div, > span {
+    @media (max-width: map-get($grid-breakpoints, "lg")-1px) {
+      display: block !important;
+      margin-bottom: .5rem;
+    }
+  }
+}
+
+pre {
+  padding: ($font-size-base * $line-height-base) /2;
+  margin: 0 0 (($font-size-base * $line-height-base) / 2);
+  color: $dark;
+  background-color: $gray-100;
+  border: 1px solid $gray-300;
+  border-radius: $border-radius;
+  @include font-size(80%);
+
+}
+
+.btn-light {
+  @include button-variant($light, darken($light, 10%));
+}
+
+.btn-default {
+  @extend .btn-light;
+}
+
+.btn-text {
+  @extend .btn;
+  @extend .btn-light;
+}
+
+.bg-white-bottom-faded {
+  @include gradient-y-three-colors(#ffffff, #ffffff, 80%, rgba(255, 255, 255, 0.0));
+  background-color: transparent;
+}
+
+/* FitNesse - customization */
+
+body {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+header,
+article {
+  margin: 0 3rem;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 3rem;
+  @extend .bg-light;
+  min-height: 3rem;
+  border-top: 1px solid #e7e7e7;
+}
+
+
+table {
+  @extend .table;
+  @extend .table-bordered;
+  @extend .table-sm;
+  width: auto;
+
+  &.hash_table {
+    margin-bottom: 0;
+  }
+}
+
+.dirListing {
+  @extend .table-striped;
+}
+
+nav.navbar {
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.navbar-nav {
+  font-size: $font-size-lg;
+  margin-right: auto;
+
+  > li {
+    @extend .nav-item;
+
+    > a {
+      @extend .nav-link;
+
+      &.dropdown-toggle {
+
+      }
+    }
+
+    > .dropdown-menu {
+      li > a {
+        @extend .dropdown-item;
+      }
+    }
+  }
+
+  .dropdown-toggle::after {
+    font-size: $font-size-base;
+  }
+}
+
+a[name] {
+  position: relative;
+  display: inline-block;
+  top: -120px;
+  visibility: hidden;
+}
+
+button,
+a.button,
+input[type="button"] {
+  @extend .btn;
+  @extend .btn-default;
+}
+
+input[type="submit"] {
+  @extend .btn;
+  @extend .btn-primary;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 0 4px 0 0;
+}
+
+input[type="file"] {
+  display: inline;
+}
+
+.dropdown-menu .divider {
+  *width: 100%;
+  height: auto;
+  margin: 0;
+  background-color: transparent;
+  border-bottom: none;
+  border-top: $dropdown-border-width solid $dropdown-border-color;
+}
+
+
+.validationerror {
+  margin-top: 0;
+  margin-left: 145px;
+}
+
+/** Rich text editor style */
+.editor-toggle {
+  @extend .form-check;
+  @extend .form-check-inline;
+}
+
+.editor-toggle label {
+  /*@extend .form-check-label;*/
+  @extend .form-check-input;
+}
+
+/** Collapsible section */
+.collapsible {
+  margin: 0;
+  @extend .card;
+  padding: 0;
+  display: block;
+  margin-bottom: $font-size-base * $line-height-base;
+
+}
+
+.collapsible > div {
+  margin: 0;
+  @extend .card-body;
+  padding: .9rem;
+}
+
+.collapsible.closed > div {
+  display: none;
+}
+
+.collapsible.invisible {
+  display: none;
+}
+
+.collapsible p.title,
+.collapsible.closed p.title {
+  @extend .card-header;
+  color: $body-color;
+  padding: 5px 15px 5px 30px;
+  background-image: url(../img/minus-sign.svg);
+  background-repeat: no-repeat;
+  background-position: 12px 9px;
+}
+
+.collapsible.closed p.title {
+  background-image: url(../img/plus-sign.svg);
+  border-bottom: 0;
+}
+
+.collapsible > ul {
+  float: right;
+  margin: 0;
+  padding: 4px 4px;
+
+  li {
+    border: none;
+    padding: 0;
+
+    a {
+      @extend .btn;
+      @extend .btn-light;
+      @extend .btn-xs;
+      float: left;
+      position: relative;
+      background-color: $body-bg;
+    }
+
+    a.expandall {
+      @include border-right-radius(0);
+    }
+
+    a.expandall:hover {
+      z-index: 2;
+
+    }
+
+    a.collapseall {
+      @include border-left-radius(0);
+      margin-left: -1px;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+tr.scenario > td:first-child {
+  background-image: url(../img/minus-sign.svg);
+  background-position: 2px 7px;
+}
+
+tr.scenario.closed > td:first-child {
+  background-image: url(../img/plus-sign.svg);
+  padding-left: 18px;
+}
+
+
+.pass, span.pass * {
+  @include gradient-bg(theme-color-level('success', -8));
+}
+
+
+span.error, span.error * {
+  @include gradient-bg(theme-color-level('warning', -8));
+}
+
+.ignore, span.ignore * {
+  @include gradient-bg(theme-color-level('info', -8));
+}
+
+#test-action {
+
+  .output,
+  .ok {
+    @extend .btn;
+    @extend .btn-sm;
+    @extend .btn-success;
+  }
+
+  .error,
+  .stop {
+    @extend .btn;
+    @extend .btn-sm;
+    @extend .btn-danger;
+  }
+
+}
+
+#progressBar {
+  @extend .progress-bar;
+  @extend .progress-bar-striped;
+  @extend .progress-bar-animated;
+  height: auto;
+  overflow: visible;
+
+  &.pass {
+    @extend .bg-success;
+  }
+
+  &.fail {
+    @extend .bg-danger;
+  }
+
+  &.error {
+    @extend .bg-warning;
+  }
+}
+
+
+@mixin svg-icon($url, $size) {
+  background-image: none !important;
+  position: relative;
+  padding-left: $size !important;
+
+  &:before {
+    position: absolute;
+    content: $url;
+    display: block;
+    width: $size;
+    height: $size;
+    padding: $size/4;
+    top: -1px;
+    left: 0;
+  }
+}
+
+#test-summary {
+  @extend .progress;
+  display: block;
+  height: auto;
+  color: $white;
+  margin-bottom: 1.25rem;
+  font-size: .825rem;
+
+  &.ignore {
+    padding: 0.5em;
+    white-space: nowrap;
+    @extend .bg-info;
+    @include svg-icon(url(../img/info-w.svg), 2rem);
+  }
+
+  &.pass {
+    @extend .bg-success;
+    @include svg-icon(url(../img/checkmark-w.svg), 2rem);
+  }
+
+  &.fail {
+    @extend .bg-danger;
+    @include svg-icon(url(../img/fail-w.svg), 2rem);
+  }
+
+  &.error {
+    @extend .bg-warning;
+    @include svg-icon(url(../img/exception-w.svg), 2rem);
+
+  }
+}
+
+#test-summaries {
+  .pass, .fail, .error, .ignore {
+    @extend .badge;
+    @extend .badge-primary;
+    padding-left: 1.25rem;
+  }
+
+  .pass {
+    @extend .badge-success;
+    @include svg-icon(url(../img/checkmark-w.svg), 20px);
+  }
+
+  .fail {
+    @extend .badge-danger;
+    @include svg-icon(url(../img/fail-w.svg), 20px);
+  }
+
+  .error {
+    @extend .badge-warning;
+    @include svg-icon(url(../img/exception-w.svg), 20px);
+  }
+
+  .ignore {
+    @extend .badge-info;
+    @include svg-icon(url(../img/info-w.svg), 20px);
+  }
+}
+
+
+#error-nav {
+  margin-left: auto;
+
+  > .title {
+    padding-left: 1rem;
+    padding-right: .5rem;
+    @include font-size($btn-font-size-sm);
+    line-height: $btn-line-height-sm;
+    display: none;
+    @extend .d-md-inline;
+  }
+
+  > .btn-group {
+    .btn-default {
+      padding: $btn-padding-y-sm $btn-padding-x-sm;
+      @include font-size($btn-font-size-sm);
+      line-height: $btn-line-height-sm;
+    }
+
+    .btn-text {
+      display: flex;
+      align-items: center;
+      padding: $btn-padding-y-sm $btn-padding-x-sm;
+      @include font-size($font-size-xs);
+      line-height: $line-height-xs;
+
+      #error-nav-text {
+        @extend .form-control;
+        @extend .form-control-sm;
+        height: 1.125rem;
+        margin-right: .375rem;
+        @include font-size($font-size-xs);
+        line-height: $line-height-xs;
+      }
+
+      #error-nav-max {
+        margin-left: .375rem;
+      }
+    }
+  }
+
+
+  a.btn-default {
+    @extend .btn-sm;
+  }
+
+
+}
+
+.propertiesPage form,
+.searchForm form,
+.refactorForm form,
+.deletePage form {
+  @extend .card;
+  padding: 1rem;
+  background-color: $light;
+}
+
+.deletePage form {
+  display: block;
+}
+
+form {
+  select,
+  input[type='text'] {
+    @extend .form-control;
+    @extend .form-control-sm;
+    display: inline-block;
+    min-width: 10rem;
+    max-width: 60rem;
+  }
+
+}
+
+fieldset {
+  margin: 0 0 0.5em 0;
+
+
+  label {
+    padding-right: .5rem;
+  }
+}
+
+form label + input[type='text'] {
+  width: calc(100vw - (300px)) !important;
+}
+
+#suites_tag, #Suites_tag, #create-dir {
+  width: 180px !important;
+}
+
+select#tt-template-map {
+  width: 10rem;
+  padding: 0;
+  height: 24px;
+
+}
+
+.nav-tabs {
+  margin-bottom: 12px;
+
+  > li {
+    @extend .nav-item;
+
+    > a {
+      @extend .nav-link;
+    }
+  }
+}
+
+
+// Specific pages:
+$page-margin-horizontal: 46px;
+.editPage #editor {
+  margin: 0 $page-margin-horizontal;
+}
+
+.editPage .textarea-toolbar,
+.editPage .wysiwyg-toolbar {
+  margin-left: 4px;
+}
+
+.editPage textarea#pageContent {
+  padding: 4px;
+}
+
+.editPage .textarea-toolbar input[type="button"] {
+  @extend .btn-default;
+  @extend .btn-xs;
+  margin: 3px 0 6px 0;
+}
+
+
+.tag {
+  @extend .badge;
+  @extend .badge-pill;
+  @extend .badge-primary;
+  border: none;
+  padding-bottom: 5px;
+  padding-left: .7rem;
+}
+
+.tag a {
+  color: $white;
+  padding-left: 2px;
+}
+
+.editPage #save_buttons {
+  margin: 8px $page-margin-horizontal;
+}
+
+#tt-wrap-text {
+  font-weight: normal;
+}
+
+.wysiwyg-toolbar li :link, .wysiwyg-toolbar li :visited {
+  /*@extend box-sizing(content-box);*/
+}
+
+label[for="hidePassedTests"] {
+  width: 12rem;
+}
+
+.failed_tests,
+.unrun_tests,
+.passed_tests {
+  background-repeat: no-repeat;
+  background-position: 0 3px;
+  background-size: 1rem;
+}
+
+td.failed_tests,
+td.unrun_tests,
+td.passed_tests {
+  background-position: 6px 8px;
+}
+
+.passed_tests {
+  background-image: url(../img/checkmark.svg);
+}
+
+.unrun_tests {
+  background-image: url(../img/exception.svg);
+}
+
+.failed_tests {
+  background-image: url(../img/fail.svg);
+}
+
+@media print {
+  nav {
+    display: none;
+  }
+}
+
+.modal-dialog > div {
+
+  input[type='text'] {
+    @extend .form-control;
+  }
+
+  .help-list {
+    h4{
+      margin-top: 1rem;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+  }
+
+}

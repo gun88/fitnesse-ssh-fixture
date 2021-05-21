@@ -1,7 +1,0 @@
----
-Suite
----
-!1 !-SshFixture-! options
-!-SshFixture-! options can be set mainly to customize interaction with ssh server or post process output. Click [[here][>DefineOptions]] to find out how to define options.
-
-!contents -R2 -g -p -f -h

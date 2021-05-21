@@ -1,7 +1,0 @@
----
-Suite
----
-!1 !-SshFixture-! endpoint definition
-!-SshFixture-! endpoint can be defined in multiple ways (e.g.: password authentication, key pair...).
-
-!contents -R2 -g -p -f -h

@@ -1,9 +1,0 @@
----
-Static
----
-!1 !-SshFixture-! installation
-!-SshFixture-! can be installed as a plugin or just provided during test executions.
-
-The suggested installation mode is the [[!-PluginMode-!][Installation.PluginMode]].
-
-!contents -R2 -g -p -f -h

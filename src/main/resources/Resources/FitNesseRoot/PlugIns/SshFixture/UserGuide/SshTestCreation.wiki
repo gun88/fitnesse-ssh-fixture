@@ -1,7 +1,0 @@
----
-Suite
----
-!1 !-SshFixture-! ssh test creation
-This section explain how !-SshFixture-! tests can be created.
-
-!contents -R2 -g -p -f -h

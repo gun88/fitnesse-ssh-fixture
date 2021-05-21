@@ -1,0 +1,15 @@
+<div class="bg-white-bottom-faded w-100 align-items-center d-none d-sm-flex p-0 pr-3 pl-3">
+    <ol class="breadcrumb bg-transparent mb-0 p-2 pl-0">
+        #foreach($breadCrumb in $pageTitle.BreadCrumbs)
+            <li class="breadcrumb-item"><a href="${contextRoot}$breadCrumb.Link">$breadCrumb.Name</a></li>
+        #end
+        <li class="breadcrumb-item active" aria-current="page">
+            #if($pageTitle.Link)<a href="/$pageTitle.Link">$pageTitle.Title </a>#else$pageTitle.Title #end
+            #if($pageTitle.pageTags)
+                #foreach($tag in $!pageTitle.pageTagsArray)<span class="tag">$tag</span>#end#end</li>
+    </ol>
+    <div class="page-actions btn-group btn-group-xs ml-auto p-2 pr-0" role="group" aria-label="Page Actions">
+        <button type="button" class="expandall btn btn-light">Expand All</button>
+        <button type="button" class="collapseall btn btn-light">Collapse All</button>
+    </div>
+</div>

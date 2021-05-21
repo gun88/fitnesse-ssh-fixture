@@ -1,7 +1,0 @@
----
-Suite
----
-!1 !-SshFixture-! endpoint options
-This suite contains endpoint related options. To know more about Endpoint definition click [[here][<UserGuide.EndpointDefinition]].
-
-!contents -R2 -g -p -f -h

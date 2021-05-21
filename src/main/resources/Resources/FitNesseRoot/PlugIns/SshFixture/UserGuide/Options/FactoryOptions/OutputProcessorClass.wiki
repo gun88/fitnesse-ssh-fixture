@@ -1,7 +1,0 @@
----
-Static
----
-!1 !-SshFixture-! output processor
-This option (labeled with: OUTPUT_PROCESSOR_CLASS) is used to define the customized output processor class name. Output processor class is a single value option so, each new definition will overwrite the previous one. To learn how to implement a customized output processor, go to [[!-CustomOutputProcessor-!][<UserGuide.Customization.CustomOutputProcessor]] page.
-
-Note: like every other option, can be defined in multiple ways, as shown in [[!-DefineOptions-!][<UserGuide.Options.DefineOptions]] page.

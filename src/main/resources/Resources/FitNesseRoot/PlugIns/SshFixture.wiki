@@ -1,7 +1,0 @@
-!contents -R2 -g -p -f -h
-!***> definitions
-!note Release v${version}
-!path ${jsch.jar.path}
-!path ${sshFixture.jar.path}
-!define TEST_SYSTEM {slim}
-*!

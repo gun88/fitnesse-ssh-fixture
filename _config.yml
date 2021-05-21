@@ -1,0 +1,13 @@
+theme: jekyll-theme-slate
+exclude: [
+  'src',
+  'e2e',
+  'angular.json',
+  'browserslist',
+  'karma.conf.js',
+  'package.json',
+  'tsconfig.app.json',
+  'tsconfig.json',
+  'tsconfig.spec.json',
+  'tslint.json'
+]
