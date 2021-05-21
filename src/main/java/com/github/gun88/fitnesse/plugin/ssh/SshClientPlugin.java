@@ -66,6 +66,8 @@ public class SshClientPlugin implements PluginFeatureFactory {
 
     @Override
     public void registerTestRunFactories(TestRunFactoryRegistry registry) throws PluginException {
+        if (isPluginUserGuideExtractorAvailableInClasspath())
+            return;
         try {
             context = registry.getContext();
             if (!isOmittingUpdates(context)) {
@@ -83,6 +85,16 @@ public class SshClientPlugin implements PluginFeatureFactory {
 
         } catch (Exception e) {
             throw new PluginException("SshClientPluginException", e);
+        }
+    }
+
+    private boolean isPluginUserGuideExtractorAvailableInClasspath() {
+
+        try {
+            Class.forName("com.github.gun88.fitnesse.plugin.uge.UserGuideExtractor");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
         }
     }
 
