@@ -2,7 +2,7 @@
 Static
 ---
 !1 !-SshFixture-! endpoint definition via VM options
-!-SshFixture-! default endpoint can be also defined via VM options. This endpoint is called 'default' because, once defined, is available in all !-SshFixture-! and, as described in PasswordAuthentication page, this endpoint can be overrided and restored once called 'reset endpoint'.
+!-SshFixture-! default endpoint can be also defined via VM options. This endpoint is called 'default' because, once defined, is available in all !-SshFixture-! and, as described in PasswordAuthentication page, this endpoint can be overridden and restored once called 'reset endpoint'.
 
 The VM endpoint key is: '''ssh.fixture.endpoint''' and can be defined in code:
 

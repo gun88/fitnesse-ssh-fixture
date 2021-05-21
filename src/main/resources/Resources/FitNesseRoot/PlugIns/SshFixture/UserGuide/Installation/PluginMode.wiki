@@ -2,7 +2,7 @@
 As shown in [[!-QuickStart-!][<UserGuide]] session, the plugin mode installation can be executed just placing the fitnesse-ssh-fixture.jar in the FitNesse plugin directory or by making the jar file available in the FitNesse web server classpath. When the archive is available in classpath, documentation files and dependency libraries are automatically extracted and tuned.
 
 !2 Documentation
-Documentation files are automatically extracted in the [[!-FitNesse PlugIns-!][<PlugIns.]] directory.
+Documentation files are automatically extracted in the [[!-FitNesse PlugIns-!][<PlugIns]] directory.
 
 !2 Dependencies
 To run tests with default implementations, !-SshFixture-! needs the [[jsch][http://www.jcraft.com/jsch/]] library that, in plugin mode, is also auto-extracted. To run test with customized implementations, go to [[this][<UserGuide.Customization]] page.
@@ -16,4 +16,4 @@ During plugin mode initialization, paths to required jars are stored in FitNesse
 To create a test using !-SshFixture-!, you just need to paste following lines in test/suite page:
 {{{!-!path ${jsch.jar.path}
 !path ${sshFixture.jar.path}-!}}}
-More details on test creation available [[here][<UserGuide.TestCreation]].
+More details on test creation available [[here][<UserGuide.SshTestCreation]].

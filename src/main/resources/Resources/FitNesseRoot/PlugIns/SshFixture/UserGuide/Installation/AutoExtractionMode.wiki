@@ -4,7 +4,7 @@ If you do not want to use !-SshFixture-! as a plugin, the auto extraction utili
 {{{java -classpath /path/tp/fitnesse-ssh-fixture.jar com.github.gun88.fitnesse.plugin.ssh.SshClientPlugin /FitNesseRoot/path}}}
 
 !2 Documentation
-Documentation files are extracted in the [[!-FitNesse PlugIns-!][<PlugIns.]] directory.
+Documentation files are extracted in the [[!-FitNesse PlugIns-!][<PlugIns]] directory.
 
 !2 Dependencies
 To run tests with default implementations, !-SshFixture-! needs the [[jsch][http://www.jcraft.com/jsch/]] library that, in auto extraction mode, is also auto-extracted. To run test with customized implementations, go to [[this][<UserGuide.Customization]] page.
@@ -19,4 +19,4 @@ If auto extraction mode was used as installation method, to create your test usi
 {{{!-!path /actual/path/to/jsch.jar
 !path /actual/path/to/sshFixture.jar-!}}}
 Note: differently from plugin mode, paths must be defined due to the fact that these are not stored in FitNesse context.
-More details on test creation available [[here][<UserGuide.TestCreation]].
+More details on test creation available [[here][<UserGuide.SshTestCreation]].

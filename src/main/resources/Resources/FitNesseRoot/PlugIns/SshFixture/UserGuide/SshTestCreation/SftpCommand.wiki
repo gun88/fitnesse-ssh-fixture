@@ -74,7 +74,7 @@ Note: this test could fail if FitNesse user has not permissions to write files i
 
 |script  |ssh client                               |foo/bar@ssh-fitnesse.dev                                |
 |open connection                                                                                            |
-|note    |uploading file                                                                                     |
+|note    |uploading file                                                                                    |
 |upload  |${FITNESSE_ROOTPATH}/demo-file-client.txt|to|demo-file-server.txt                                 |
 |check   |output                                   |Uploaded at: demo-file-server.txt                       |
 |check   |exit code                                |0                                                       |

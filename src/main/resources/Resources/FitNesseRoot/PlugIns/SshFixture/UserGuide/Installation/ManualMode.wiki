@@ -15,4 +15,4 @@ With this installation method, to create your test using !-SshFixture-!, you nee
 {{{!-!path /actual/path/to/jsch.jar
 !path /actual/path/to/sshFixture.jar-!}}}
 Note: differently from plugin mode, paths must be defined due to the fact that those are not stored in FitNesse context.
-More details on test creation available [[here][<UserGuide.TestCreation]].
+More details on test creation available [[here][<UserGuide.SshTestCreation]].

@@ -5,7 +5,7 @@ Static
 Custom session can be implemented to customize ssh sessions.
 
 !2 Custom session example
-In this exemple is defined a custom session implemented with Apache MINA SSHD.
+In this example is defined a custom session implemented with Apache MINA SSHD.
 
 !3 Custom session implementation
 Create the following class, compile it and make it available in the class-path

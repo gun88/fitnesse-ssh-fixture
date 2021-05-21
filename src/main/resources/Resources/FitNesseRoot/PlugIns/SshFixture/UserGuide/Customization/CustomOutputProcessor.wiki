@@ -5,7 +5,7 @@ Static
 Custom output processor can be implemented to customize or enrich output processing. Is suggested to extend the default output processor to maintain default behaviours.
 
 !2 Custom output processor example
-In this exemple a custom output processor (extending the default one) is defined to implement a grep-like operation. This grep match on a string provided via CustomOptions.
+In this example a custom output processor (extending the default one) is defined to implement a grep-like operation. This grep match on a string provided via CustomOptions.
 
 !3 Custom output processor implementation
 Create the following class, compile it and make it available in the class-path
@@ -25,7 +25,7 @@ public class GrepOutputProcessor extends DefaultOutputProcessor {
 
     @Override
     public void after(ExecutionResult result, Options options) {
-        List<String> greps = options.getOtherOptions().stream()
+        List&lt;String&gt; greps = options.getOtherOptions().stream()
                 .filter(x -> x.getKey().equals("GREP"))
                 .map(Option::getValue)
                 .collect(Collectors.toList());
@@ -33,7 +33,7 @@ public class GrepOutputProcessor extends DefaultOutputProcessor {
         result.setError(grep(result.getError(), greps));
     }
 
-    private String grep(String output, List<String> greps) {
+    private String grep(String output, List&lt;String&gt; greps) {
         for (String grep : greps)
             output = Arrays.stream(grep.split("\n"))
                     .filter(x -> x.contains(grep))

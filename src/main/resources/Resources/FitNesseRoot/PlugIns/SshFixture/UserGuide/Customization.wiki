@@ -1,5 +1,5 @@
 ---
-Suite
+Static
 ---
 !1 !-SshFixture-! customization
 !-SshFixture-! can be used with [[!-CustomSession-!][<UserGuide.Customization.CustomSession]]  and [[!-CustomOutputProcessor-!][<UserGuide.Customization.CustomOutputProcessor]].

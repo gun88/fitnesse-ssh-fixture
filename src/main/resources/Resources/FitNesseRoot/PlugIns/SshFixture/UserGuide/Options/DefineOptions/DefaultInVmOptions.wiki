@@ -2,7 +2,7 @@
 Static
 ---
 !1 !-SshFixture-! option definition via VM options
-!-SshFixture-! default options can be also defined via VM options. This options are called 'default' because, once defined, are available in all !-SshFixture-! and, as described in ScriptTable page, these options can be overrided and restored once called 'reset option'.
+!-SshFixture-! default options can be also defined via VM options. This options are called 'default' because, once defined, are available in all !-SshFixture-! and, as described in ScriptTable page, these options can be overridden and restored once called 'reset option'.
 
 The VM option key is: '''ssh.fixture.options''' and can be defined in code:
 
