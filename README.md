@@ -12,8 +12,8 @@ FitNesse fixture for SSH and SFTP connections - [![Maven Central](https://img.sh
 
 
 ## Quick Start
-1. Download release file: [fitnesse-ssh-fixture-1.0.0.jar](https://github.com/gun88/fitnesse-ssh-fixture/releases/download/v1.0.0/fitnesse-ssh-fixture-1.0.0.jar)
-2. Put `fitnesse-ssh-fixture-1.0.0.jar` in the `plugins` directory (or add it to the classpath)
+1. Download release file: [fitnesse-ssh-fixture-1.0.1.jar](https://github.com/gun88/fitnesse-ssh-fixture/releases/download/v1.0.1/fitnesse-ssh-fixture-1.0.1.jar)
+2. Put `fitnesse-ssh-fixture-1.0.1.jar` in the `plugins` directory (or add it to the classpath)
 3. Run FitNesse and navigate PlugIns suite to get fitnesse-ssh-fixture UserGuide and Examples
 
 *Note: As shown in [QuickStart](https://gun88.github.io/fitnesse-ssh-fixture/PlugIns.SshFixture.UserGuide) documentation session, the plugin mode installation can be executed just placing 
@@ -85,6 +85,9 @@ local repository)
 
 
 ## Releases
+### v1.0.1 (fitnesse-ssh-fixture)
+ - [fitnesse-ssh-fixture-1.0.1.jar](https://github.com/gun88/fitnesse-ssh-fixture/releases/download/v1.0.1/fitnesse-ssh-fixture-1.0.1.jar)
+ 
 ### v1.0.0 (fitnesse-ssh-fixture)
  - [fitnesse-ssh-fixture-1.0.0.jar](https://github.com/gun88/fitnesse-ssh-fixture/releases/download/v1.0.0/fitnesse-ssh-fixture-1.0.0.jar)
 
