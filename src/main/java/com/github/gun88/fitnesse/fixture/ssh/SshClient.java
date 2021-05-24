@@ -14,8 +14,6 @@ import static com.github.gun88.fitnesse.fixture.ssh.util.SshClientUtils.unwrapPr
 import static java.lang.Integer.parseInt;
 
 public class SshClient {
-    // todo maven
-    // todo unit test
 
     private final Endpoint endpoint = new Endpoint();
     private final Options options = new Options();

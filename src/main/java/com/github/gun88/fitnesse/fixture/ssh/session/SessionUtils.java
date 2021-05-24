@@ -22,7 +22,6 @@ class SessionUtils {
     }
 
     static String streamToString(InputStream stream) throws IOException {
-        // todo refactoring
         StringBuilder outputBuffer = new StringBuilder();
         int readByte;
         while ((readByte = stream.read()) != 0xffffffff) {
