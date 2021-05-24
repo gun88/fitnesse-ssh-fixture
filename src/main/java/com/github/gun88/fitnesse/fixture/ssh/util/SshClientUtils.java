@@ -1,5 +1,7 @@
 package com.github.gun88.fitnesse.fixture.ssh.util;
 
+import fitnesse.html.HtmlUtil;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -39,6 +41,11 @@ public class SshClientUtils {
     public static String unwrapPreformatted(String value) {
         if (value == null)
             return null;
-        return value.replaceAll("^\\s*<pre>", "").replaceAll("</pre>\\s*$", "");
+        if (value.contains("<pre>") && value.contains("</pre>")) {
+            value = value.replaceAll("^\\s*<pre>", "").replaceAll("</pre>\\s*$", "");
+            value = HtmlUtil.unescapeHTML(value);
+        }
+
+        return value;
     }
 }

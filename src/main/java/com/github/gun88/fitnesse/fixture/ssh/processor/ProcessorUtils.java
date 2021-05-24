@@ -9,8 +9,10 @@ import static java.util.stream.Collectors.joining;
 
 class ProcessorUtils {
     static String wrapPreformatted(String string) {
-        if (string != null)
+        if (string != null) {
             string = string.replace(HtmlUtil.BR.html(), "\n");
+            string = HtmlUtil.escapeHTML(string);
+        }
         return "<pre>" + string + "</pre>";
     }
 
