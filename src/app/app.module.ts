@@ -56,6 +56,7 @@ import {OutputProcessorClassComponent} from './page/plug-ins/ssh-fixture/user-gu
 import {IgnoreCarriageReturnComponent} from './page/plug-ins/ssh-fixture/user-guide/options/output-options/ignore-carriage-return.component';
 import {DecisionTableModeComponent} from './page/plug-ins/ssh-fixture/user-guide/ssh-test-creation/decision-table-mode.component';
 import {EndpointDefinitionComponent} from './page/plug-ins/ssh-fixture/user-guide/endpoint-definition.component';
+import {ProjectsComponent} from './component/projects/projects.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import {EndpointDefinitionComponent} from './page/plug-ins/ssh-fixture/user-guid
     OptionsComponent,
     SshTestCreationComponent,
     EndpointDefinitionComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,

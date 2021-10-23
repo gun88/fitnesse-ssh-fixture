@@ -8,6 +8,7 @@ import {Component, OnInit} from '@angular/core';
       <div class="row">
         <div class="col-md-9" style="overflow: hidden">
           <app-readme></app-readme>
+          <app-projects></app-projects>
         </div>
         <div class="col-md-3" style="overflow: hidden">
           <app-recap-table></app-recap-table>
